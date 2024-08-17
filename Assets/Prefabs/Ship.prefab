@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 857797036975095136}
   - component: {fileID: 8444037967093077126}
   - component: {fileID: 4012335670256668983}
+  - component: {fileID: 3736729567601605992}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -234,8 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc73f54795f53cd42ba54c816c714b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hp: 0
-  MaxHp: 5
+  Hp: {fileID: 0}
   Team: 0
 --- !u!58 &8444037967093077126
 CircleCollider2D:
@@ -299,3 +299,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &3736729567601605992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724096903945927140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a33bc0cbe69d7844b145a5201428f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 0
