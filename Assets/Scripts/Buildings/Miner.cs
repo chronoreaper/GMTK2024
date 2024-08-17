@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,8 +10,10 @@ public class Miner : AbstractBaseBuilding
     [SerializeField] private float timeToGenerate;
     [SerializeField] private int amountToGenerate;
     [SerializeField] private int maxAmount;
+
+    public override BuildingType Type { get; protected set; } = BuildingType.Miner;
     
-    private ResourceTypes _resource = ResourceTypes.STONE;
+    protected ResourceTypes _resource = ResourceTypes.Stone;
     private int _amount;
 
     public int AmountGenerated
@@ -29,18 +30,18 @@ public class Miner : AbstractBaseBuilding
             _amount = value;
         }
     }
-
-    private void Awake()
-    {
-        StartCoroutine(nameof(Process));
-        OnResourceGenerated?.Invoke(AmountGenerated);
-    }
-
+    
     public void Init(ResourceTypes resourceType)
     {
         _resource = resourceType;
-        print(_resource.ToString());
     }
+
+    private void Awake()
+    {
+        OnResourceGenerated?.Invoke(AmountGenerated);
+        StartCoroutine(nameof(Process));
+    }
+
 
     private IEnumerator Process()
     {

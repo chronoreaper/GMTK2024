@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BoardTile : MonoBehaviour
 {
-    public ResourceTypes Resource { get; private set; } = ResourceTypes.NONE;
+    public ResourceTypes Resource { get; private set; } = ResourceTypes.None;
     
     public void Init(bool hasResources)
     {
         GetComponent<SpriteRenderer>().color = hasResources ? Color.green : Color.gray;
 
-        Resource = hasResources ? (ResourceTypes) Random.Range(1, 3) : ResourceTypes.NONE;
+        Resource = hasResources ? (ResourceTypes) Random.Range(1, 3) : ResourceTypes.None;
     }
 }

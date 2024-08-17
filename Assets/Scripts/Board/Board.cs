@@ -13,7 +13,8 @@ public class Board : MonoBehaviour
     [SerializeField] private BoardTile tilePrefab;
     [SerializeField] private Camera mainCamera;
 
-    private Dictionary<Vector2, BoardTile> _board = new();
+    private static Dictionary<Vector2, BoardTile> _board = new();
+    public static readonly Dictionary<Vector2, AbstractBaseBuilding> BuildingBoard = new();
 
     private void Awake()
     {
@@ -30,17 +31,12 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < height; j++)
             {
-                var tile = Instantiate(tilePrefab, new Vector3(i, j), Quaternion.identity);
+                var tile = Instantiate(tilePrefab, new Vector3(i, j), Quaternion.identity, transform);
                 _board.Add(new Vector3(i, j), tile);
 
                 if (i == 5 && j == 2)
                 {
                     tile.Init(true);
-
-                    var position = new Vector3(i, j);
-                    
-                    var miner = Instantiate(minerPrefab, position, Quaternion.identity);
-                    miner.Init(GetTileByPosition(position).Resource);
                     continue;
                 }
                 
@@ -56,5 +52,7 @@ public class Board : MonoBehaviour
         mainCamera.orthographicSize = (float)height / 2 + 1f;
     }
     
-    public BoardTile GetTileByPosition(Vector2 position) => _board.GetValueOrDefault(position);
+    public static BoardTile GetTileByPosition(Vector2 position) => _board.GetValueOrDefault(position);
+
+    public static AbstractBaseBuilding GetBuildingByPosition(Vector2 position) => BuildingBoard.GetValueOrDefault(position);
 }

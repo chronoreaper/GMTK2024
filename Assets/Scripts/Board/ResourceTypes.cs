@@ -1,6 +1,6 @@
 public enum ResourceTypes
 {
-    NONE,
-    WOOD,
-    STONE
+    None,
+    Wood,
+    Stone
 }

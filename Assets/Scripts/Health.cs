@@ -20,7 +20,13 @@ public class Health : MonoBehaviour
             if (value < 0)
             {
                 _currentHealth = 0;
+                Kill();
                 return;
+            }
+
+            if (value == 0)
+            {
+                Kill();
             }
 
             _currentHealth = value;
@@ -28,8 +34,14 @@ public class Health : MonoBehaviour
     }
 
     private void Awake() => CurrentHealth = maxHealth;
-
+    
     public void Damage(float damage) => CurrentHealth -= damage;
 
     public void Heal(float amount) => CurrentHealth += amount;
+
+    private void Kill()
+    {
+        //TODO: Spawn some particles, play sound
+        Destroy(gameObject);
+    }
 }
