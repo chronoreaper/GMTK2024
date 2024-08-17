@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 public class Ship : MonoBehaviour
 {
     public Bullet Shot;
-    public PlayerControls PlayerControls;
     public float Speed = 5f;
     public float VisionRange = 5f;
     public float AtkRange = 3f;
@@ -17,15 +16,18 @@ public class Ship : MonoBehaviour
     bool _canAttack = true;
     Unit _unit = null;
     Unit _target = null;
-    InputAction _click;
-    InputAction _cursorPosition;
     SpriteRenderer _sr;
 
     Vector2 _targetPos = new Vector3();
 
+    public void MoveTowards(Vector2 pos)
+    {
+        _targetPos = pos;
+    }
+
+
     private void Awake()
     {
-        PlayerControls = new PlayerControls();
         _sr = transform.GetComponentInChildren<SpriteRenderer>();
         _unit = transform.GetComponent<Unit>();
     }
@@ -35,20 +37,6 @@ public class Ship : MonoBehaviour
         _targetPos = transform.position;
     }
 
-    private void OnEnable()
-    {
-        _click = PlayerControls.Player.Click;
-        _cursorPosition = PlayerControls.Player.CusorPosition;
-        _click.Enable();
-        _click.performed += Click;
-        _cursorPosition.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _click.Disable();
-        _cursorPosition.Disable();
-    }
 
     // Update is called once per frame
     void Update()
@@ -89,12 +77,6 @@ public class Ship : MonoBehaviour
             _sr.transform.up = _targetPos - (Vector2)transform.position;
             transform.position = Vector3.MoveTowards(transform.position, _targetPos, movementMultiplier * Speed * Time.deltaTime);
         }
-    }
-
-    private void Click(InputAction.CallbackContext obj)
-    {
-        if (_unit.Team == Unit.UnitTeam.Player)
-            _targetPos = Camera.main.ScreenToWorldPoint(_cursorPosition.ReadValue<Vector2>());
     }
 
     private Unit GetClosestEnemy(float radius = 3)
