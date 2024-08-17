@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class Unit : MonoBehaviour
 {
     public enum UnitTeam
@@ -11,8 +12,7 @@ public class Unit : MonoBehaviour
         Neutral
     }
 
-    public int Hp;
-    public int MaxHp;
+    public Health Hp;
     public UnitTeam Team;
 
 
@@ -37,9 +37,13 @@ public class Unit : MonoBehaviour
         return colour;
     }
 
+    private void Awake()
+    {
+        Hp = GetComponent<Health>();
+    }
+
     private void Start()
     {
-        Hp = MaxHp;
         UpdateColor();
     }
 
