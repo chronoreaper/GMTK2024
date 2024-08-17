@@ -4,7 +4,8 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float maxHealth;
 
-    private float _currentHealth;
+    protected float _currentHealth;
+    protected Unit _lastDamagedBy;
 
     public float CurrentHealth
     {
@@ -35,11 +36,16 @@ public class Health : MonoBehaviour
 
     private void Awake() => CurrentHealth = maxHealth;
     
-    public void Damage(float damage) => CurrentHealth -= damage;
+    private void Damage(float damage) => CurrentHealth -= damage;
+    public void Damage(float damage, Unit source) 
+    { 
+        Damage(damage);
+        _lastDamagedBy = source;
+    }
 
     public void Heal(float amount) => CurrentHealth += amount;
 
-    private void Kill()
+    protected virtual void Kill()
     {
         //TODO: Spawn some particles, play sound
         Destroy(gameObject);

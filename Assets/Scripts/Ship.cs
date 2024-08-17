@@ -91,17 +91,6 @@ public class Ship : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Bullet bullet = collision.collider.GetComponent<Bullet>();
-        // This may cause an error if the bullet Soruce is killed before the bullet is hit.
-        if (bullet != null && bullet.Source.Team != _unit.Team)
-        {
-            _unit.Hp.Damage(1);
-            Destroy(bullet.gameObject);
-        }
-    }
-
     private void Click(InputAction.CallbackContext obj)
     {
         if (_unit.Team == Unit.UnitTeam.Player)

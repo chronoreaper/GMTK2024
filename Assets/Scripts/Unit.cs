@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour
 {
     public enum UnitTeam
@@ -12,9 +14,19 @@ public class Unit : MonoBehaviour
         Neutral
     }
 
-    public Health Hp;
-    public UnitTeam Team;
+    public Health Hp { get; set; }
+    public UnitTeam Team
+    {
+        get => _initialTeam;
+        set
+        {
+            _initialTeam = value;
+            UpdateColor();
+        }
+    }
 
+    [SerializeField]
+    protected UnitTeam _initialTeam;
 
     public Color GetTeamColour()
     {
@@ -40,19 +52,32 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         Hp = GetComponent<Health>();
+        Team = _initialTeam;
     }
 
-    private void Start()
+    protected void Start()
     {
         UpdateColor();
     }
 
-    private void OnValidate()
+    protected void OnValidate()
     {
+        Team = _initialTeam;
         UpdateColor();
     }
 
-    private void UpdateColor()
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        Bullet bullet = collision.collider.GetComponent<Bullet>();
+        // This may cause an error if the bullet Soruce is killed before the bullet is hit.
+        if (bullet != null && bullet.Source.Team != Team)
+        {
+            Hp.Damage(1, bullet.Source);
+            Destroy(bullet.gameObject);
+        }
+    }
+
+    protected virtual void UpdateColor()
     {
         var sr = transform.GetComponentInChildren<SpriteRenderer>();
         sr.color = GetTeamColour();
