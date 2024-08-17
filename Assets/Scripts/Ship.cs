@@ -97,10 +97,7 @@ public class Ship : MonoBehaviour
         // This may cause an error if the bullet Soruce is killed before the bullet is hit.
         if (bullet != null && bullet.Source.Team != _unit.Team)
         {
-            _unit.Hp -= 1;
-
-            if (_unit.Hp <= 0)
-                Destroy(gameObject);
+            _unit.Hp.Damage(1);
             Destroy(bullet.gameObject);
         }
     }
