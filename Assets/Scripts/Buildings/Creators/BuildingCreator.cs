@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BuildingCreator : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class BuildingCreator : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color canBuildColor;
     [SerializeField] private Color cantBuildColor;
+
+    private PlayerControls _playerControls;
+    private InputAction _cursorPosition;
+    private InputAction _rightClick;
     
     private AbstractBaseBuilding Create(Vector2 position, Quaternion rotation)
     {
@@ -19,26 +25,34 @@ public class BuildingCreator : MonoBehaviour
         return building;
     }
 
+    private void Awake()
+    {
+        _playerControls = new PlayerControls();
+        _cursorPosition = _playerControls.Player.CusorPosition;
+        _rightClick = _playerControls.Player.RightClick;
+        _rightClick.Enable();
+        _rightClick.performed += Cancel;
+        _playerControls.Player.Click.performed += TryBuild;
+    }
+
     private void Update()
     {
         SnapObject();
         ChangeColor();
+    }
 
-        if (Input.GetMouseButtonDown(0) && CanBuild())
-        {
-            var building = Create(transform.position, Quaternion.identity);
+    private void OnEnable()
+    {
+        _cursorPosition.Enable();
+        _playerControls.Player.RightClick.Enable();
+        _playerControls.Player.Click.Enable();
+    }
 
-            if (building.Type == BuildingType.Miner)
-            {
-                var miner = (Miner)building;
-                miner.Init(Board.GetTileByPosition(miner.transform.position).Resource);
-            }
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Destroy(gameObject);
-        }
+    private void OnDisable()
+    {
+        _cursorPosition.Disable();
+        _playerControls.Player.RightClick.Disable();
+        _playerControls.Player.Click.Disable();
     }
 
     private Vector2 GetGridPosition(Vector2 currentPosition)
@@ -51,15 +65,14 @@ public class BuildingCreator : MonoBehaviour
 
     private void SnapObject()
     {
-        var mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,
-            transform.position.z - Camera.main.transform.position.z));
+        var mousePosition = Camera.main.ScreenToWorldPoint(_cursorPosition.ReadValue<Vector2>());
         
         transform.position = GetGridPosition(mousePosition);
     }
 
     private void ChangeColor()
     {
-        if (CanBuild())
+        if (buildingPrefab.CanBuild(transform.position))
         {
             spriteRenderer.color = canBuildColor;
             return;
@@ -67,11 +80,18 @@ public class BuildingCreator : MonoBehaviour
 
         spriteRenderer.color = cantBuildColor;
     }
-    
-    private bool CanBuild()
+
+    private void Cancel(InputAction.CallbackContext callbackContext) => Destroy(gameObject);
+
+    private void TryBuild(InputAction.CallbackContext callbackContext)
     {
-        var tilePosition = Board.GetTileByPosition(transform.position);
+        if (!buildingPrefab.CanBuild(transform.position))
+        {
+            return;
+        }
         
-        return tilePosition != null && tilePosition.Resource != ResourceTypes.None && Board.GetBuildingByPosition(transform.position) == null;
+        var building = Create(transform.position, Quaternion.identity);
+
+        building.Build();
     }
 }

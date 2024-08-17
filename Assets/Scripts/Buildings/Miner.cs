@@ -11,7 +11,7 @@ public class Miner : AbstractBaseBuilding
     [SerializeField] private int amountToGenerate;
     [SerializeField] private int maxAmount;
 
-    public override BuildingType Type { get; protected set; } = BuildingType.Miner;
+    //public override BuildingType Type { get; protected set; } = BuildingType.Miner;
     
     protected ResourceTypes _resource = ResourceTypes.Stone;
     private int _amount;
@@ -31,17 +31,20 @@ public class Miner : AbstractBaseBuilding
         }
     }
     
-    public void Init(ResourceTypes resourceType)
+    public override void Build()
     {
-        _resource = resourceType;
-    }
-
-    private void Awake()
-    {
-        OnResourceGenerated?.Invoke(AmountGenerated);
+        _resource = Board.GetTileByPosition(transform.position).Resource;
         StartCoroutine(nameof(Process));
     }
 
+    private void Awake() => OnResourceGenerated?.Invoke(AmountGenerated);
+
+    public override bool CanBuild(Vector2 position)
+    {
+        var tilePosition = Board.GetTileByPosition(position);
+        
+        return tilePosition != null && tilePosition.Resource != ResourceTypes.None && Board.GetBuildingByPosition(position) == null;
+    }
 
     private IEnumerator Process()
     {
