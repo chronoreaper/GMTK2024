@@ -1,6 +1,6 @@
-using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Unit))]
 public class Turret : AbstractBaseBuilding
 {
     [Header("Turret Settings")] 
@@ -9,7 +9,7 @@ public class Turret : AbstractBaseBuilding
     [SerializeField] private float fireRate;
     [SerializeField] private float offsetRotation;
 
-    private Unit _target;
+    private Unit _unit;
     private float _timeSinceLastShot;
     
     public override void Build()
@@ -48,8 +48,7 @@ public class Turret : AbstractBaseBuilding
         
         if (Physics2D.Raycast(transform.position, transform.up, range))
         {
-            //TODO: Make Enemies Take Damage
-            enemy.GetComponent<Health>().Damage(damage);
+            enemy.GetComponent<Health>().Damage(damage, _unit);
         }
 
         _timeSinceLastShot = 0;
