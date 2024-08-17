@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialTeam: 0
+  Spawner: {fileID: 0}
 --- !u!114 &1806596520640390968
 MonoBehaviour:
   m_ObjectHideFlags: 0
