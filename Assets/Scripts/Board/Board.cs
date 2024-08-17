@@ -4,9 +4,7 @@ using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
-{
-    [SerializeField] private Miner minerPrefab;
-    
+{   
     [Header("Board Settings")] 
     [SerializeField] private int width;
     [SerializeField] private int height;
@@ -23,10 +21,7 @@ public class Board : MonoBehaviour
     }
 
     private void CreateBoard()
-    {
-        var randomX = Random.Range(0, width);
-        var randomY = Random.Range(0, height);
-        
+    {       
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
