@@ -74,7 +74,8 @@ public class PlayerMouse : MonoBehaviour
     private void Release(InputAction.CallbackContext obj)
     {
         _mouseEnd = transform.position;
-        SelectUnits();
+        if ((_mouseEnd - _mouseStart).magnitude > 1)
+            SelectUnits();
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
     }
@@ -89,7 +90,6 @@ public class PlayerMouse : MonoBehaviour
 
     private void SelectUnits()
     {
-        Debug.Log("Selection");
         _selected.Clear();
         Collider2D[] results = Physics2D.OverlapBoxAll(Vector2.Min(_mouseStart, _mouseEnd), Abs(_mouseStart, _mouseEnd), 0);
         // Get closest target that is not on team
@@ -100,7 +100,6 @@ public class PlayerMouse : MonoBehaviour
                 continue;
             if (other.Team != Unit.UnitTeam.Player)
                 continue;
-            Debug.Log(other);
             _selected.Add(other);
         }
     }

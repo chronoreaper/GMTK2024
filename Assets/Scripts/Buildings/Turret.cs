@@ -1,6 +1,6 @@
-using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(Unit))]
 public class Turret : AbstractBaseBuilding
 {
     [Header("Turret Settings")] 
@@ -9,7 +9,7 @@ public class Turret : AbstractBaseBuilding
     [SerializeField] private float fireRate;
     [SerializeField] private float offsetRotation;
 
-    private Unit _target;
+    private Unit _unit;
     private float _timeSinceLastShot;
     
     public override void Build()
@@ -22,7 +22,7 @@ public class Turret : AbstractBaseBuilding
         _timeSinceLastShot += Time.deltaTime;
         
         Attack();
-        RotateToEnemy(GetClosetEnemy().transform.position);
+        RotateToEnemy(GetClosetEnemy());
     }
 
     private void Attack()
@@ -40,24 +40,36 @@ public class Turret : AbstractBaseBuilding
         }
 
         var enemy = enemyCollider.GetComponent<Unit>();
-        
-        var direction = enemy.transform.position - transform.position;
 
-        var raycast = Physics2D.Raycast(transform.position, direction, range);
-        
-        if (raycast.collider.GetComponent<Unit>())
+        if (enemy.Team != Unit.UnitTeam.Enemy)
         {
-            //TODO: Make Enemies Take Damage
-            //enemy.
-            print("gfgfdfgdgfdgf");
+            return;
+        }
+        
+        if (Physics2D.Raycast(transform.position, transform.up, range))
+        {
+            enemy.GetComponent<Health>().Damage(damage, _unit);
         }
 
         _timeSinceLastShot = 0;
     }
 
-    private void RotateToEnemy(Vector2 enemyPosition)
+    private void RotateToEnemy(Collider2D enemyCollider)
     {
-        var direction = enemyPosition - (Vector2)transform.position;
+        if (enemyCollider == null)
+        {
+            return;
+        }
+
+        var enemy = enemyCollider.GetComponent<Unit>();
+
+        if (enemy.Team != Unit.UnitTeam.Enemy)
+        {
+            return;
+        }
+        
+        var targetPosition = (Vector2) enemyCollider.transform.position;
+        var direction = targetPosition - (Vector2)transform.position;
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + offsetRotation;
         
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 6 * Time.deltaTime);
