@@ -27,6 +27,7 @@ public class BuildingCreator : MonoBehaviour
     private PlayerControls _playerControls;
     private InputAction _cursorPosition;
     private InputAction _rightClick;
+    private float _currentAngle;
     
     private AbstractBaseBuilding Create(Vector2 position, Quaternion rotation)
     {
@@ -42,9 +43,9 @@ public class BuildingCreator : MonoBehaviour
         _playerControls = new PlayerControls();
         _cursorPosition = _playerControls.Player.CusorPosition;
         _rightClick = _playerControls.Player.RightClick;
-        _rightClick.Enable();
         _rightClick.performed += Cancel;
         _playerControls.Player.Click.performed += TryBuild;
+        _playerControls.Player.RotateBuilding.performed += Rotate;
     }
 
     private void Update()
@@ -56,15 +57,17 @@ public class BuildingCreator : MonoBehaviour
     private void OnEnable()
     {
         _cursorPosition.Enable();
-        _playerControls.Player.RightClick.Enable();
+        _rightClick.Enable();
         _playerControls.Player.Click.Enable();
+        _playerControls.Player.RotateBuilding.Enable();
     }
 
     private void OnDisable()
     {
         _cursorPosition.Disable();
-        _playerControls.Player.RightClick.Disable();
+        _rightClick.Disable();
         _playerControls.Player.Click.Disable();
+        _playerControls.Player.RotateBuilding.Disable();
     }
 
     private Vector2 GetGridPosition(Vector2 currentPosition)
@@ -102,8 +105,15 @@ public class BuildingCreator : MonoBehaviour
             return;
         }
         
-        var building = Create(transform.position, Quaternion.identity);
+        var building = Create(transform.position, transform.rotation);
 
         building.Build();
+    }
+
+    private void Rotate(InputAction.CallbackContext callbackContext)
+    {
+        _currentAngle += 90;
+        
+        transform.rotation = Quaternion.AngleAxis(_currentAngle, Vector3.forward);
     }
 }
