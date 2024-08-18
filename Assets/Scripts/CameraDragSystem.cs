@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraDragSystem : MonoBehaviour
 {
@@ -11,9 +12,34 @@ public class CameraDragSystem : MonoBehaviour
     [SerializeField] private bool useDragPan;
     [Range(0.5f, 2f)][SerializeField] float dragPanSpeed;
 
+    PlayerControls _playerControls;
+    InputAction _click;
+    InputAction _cursorPosition;
+
 
     private bool isDragPanMoveActive;
     private Vector2 lastMousePosition;
+
+    private void Awake()
+    {
+        _playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        _click = _playerControls.Player.Click;
+        _click.Enable();
+        _click.performed += MouseDown;
+        _click.canceled += MouseUp;
+
+        _cursorPosition = _playerControls.Player.CusorPosition;
+        _cursorPosition.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _click.Disable();
+    }
 
     private void Update()
     {
@@ -33,28 +59,28 @@ public class CameraDragSystem : MonoBehaviour
         }
     }
 
+    private void MouseDown(InputAction.CallbackContext context)
+    {
+        isDragPanMoveActive = true;
+        lastMousePosition = _cursorPosition.ReadValue<Vector2>();
+    }
+
+    private void MouseUp(InputAction.CallbackContext context)
+    {
+        isDragPanMoveActive = false;
+    }
+
     private void DragPanCameraMovement()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDragPanMoveActive = true;
-            lastMousePosition = Input.mousePosition;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            isDragPanMoveActive = false;
-        }
-
         if (isDragPanMoveActive)
         {
-            Vector3 inputDir = Vector3.zero;
-            Vector2 mouseMovmentDelta = (Vector2)Input.mousePosition - lastMousePosition;
+            Vector2 inputDir = Vector2.zero;
+            Vector2 mouseMovmentDelta = _cursorPosition.ReadValue<Vector2>() - lastMousePosition;
 
             inputDir.x = -mouseMovmentDelta.x * dragPanSpeed;
             inputDir.y = -mouseMovmentDelta.y * dragPanSpeed;
 
-            lastMousePosition = Input.mousePosition;
+            lastMousePosition = _cursorPosition.ReadValue<Vector2>();
 
             Vector3 moveDir = transform.up * inputDir.y + transform.right * inputDir.x;
 
@@ -65,23 +91,24 @@ public class CameraDragSystem : MonoBehaviour
 
     private void EdgeScrollingCameraMovement()
     {
-        Vector3 inputDir = Vector3.zero;
+        Vector2 inputDir = Vector2.zero;
+        Vector2 mousePosition = _cursorPosition.ReadValue<Vector2>();
 
         int edgeScrollingSize = 50;
 
-        if (Input.mousePosition.x < edgeScrollingSize)
+        if (mousePosition.x < edgeScrollingSize)
         {
             inputDir.x = -1f;
         }
-        if (Input.mousePosition.y < edgeScrollingSize)
+        if (mousePosition.y < edgeScrollingSize)
         {
             inputDir.y = -1f;
         }
-        if (Input.mousePosition.x > Screen.width - edgeScrollingSize)
+        if (mousePosition.x > Screen.width - edgeScrollingSize)
         {
             inputDir.x = 1f;
         }
-        if (Input.mousePosition.y > Screen.height - edgeScrollingSize)
+        if (mousePosition.y > Screen.height - edgeScrollingSize)
         {
             inputDir.y = 1f;
         }
