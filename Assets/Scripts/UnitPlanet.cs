@@ -9,8 +9,10 @@ public class UnitPlanet : Unit
     public PlanetType Type;
 
     public Board ReferencedBoard { get; private set; } = null;
+    public PlanetSpriteResource[] Sprites;
 
     private UnitBase _base;
+    private SpriteRenderer _sr;
 
     protected override void Awake()
     {
@@ -24,10 +26,10 @@ public class UnitPlanet : Unit
 
     protected override void OnValidate()
     {
-        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        if (sr != null)
+        _sr = GetComponentInChildren<SpriteRenderer>();
+        if (_sr != null)
         {
-            sr.transform.localScale = new Vector2(Radius, Radius) * 2;
+            _sr.transform.localScale = new Vector2(Radius, Radius) * 2;
         }
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
@@ -35,6 +37,7 @@ public class UnitPlanet : Unit
 
         _base = GetComponentInChildren<UnitBase>();
         _base.Team = Team;
+        UpdateSprite();
     }
 
     protected void Update()
@@ -49,5 +52,21 @@ public class UnitPlanet : Unit
     protected override void UpdateColor()
     {
         // TODO? do an outline?
+    }
+
+    void UpdateSprite()
+    {
+        // Get the sprite
+        PlanetSpriteResource sprite = null;
+        foreach (var i in Sprites)
+        {
+            if (i.Type == Type)
+                sprite = i;
+        }
+        if (sprite == null)
+            return;
+
+        _sr.sprite = sprite.Sprite;
+
     }
 }
