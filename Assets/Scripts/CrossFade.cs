@@ -5,7 +5,7 @@ public class CrossFade : MonoBehaviour
 {
     private Animator myAnimator;
 
-    private float transitionTime = 1.5f;
+    private float transitionTime = 1f;
 
     private void Awake()
     {
@@ -14,17 +14,17 @@ public class CrossFade : MonoBehaviour
 
     private void OnEnable()
     {
-        Planet.onSwitchPlanetView += RunFadeInAnimation;
-        Planet.onSwitchGalaxyView += RunFadeOutAnimation;
+        SwitchMapView.onSwitchPlanetView += RunFadeAnimation;
+        SwitchMapView.onSwitchGalaxyView += RunFadeAnimation;
     }
 
     private void OnDisable()
     {
-        Planet.onSwitchPlanetView -= RunFadeInAnimation;
-        Planet.onSwitchGalaxyView -= RunFadeOutAnimation;
+        SwitchMapView.onSwitchPlanetView -= RunFadeAnimation;
+        SwitchMapView.onSwitchGalaxyView -= RunFadeAnimation;
     }
 
-    private void RunFadeInAnimation()
+    private void RunFadeAnimation()
     {
         StartCoroutine(FadeInTransition());
     }
@@ -36,10 +36,5 @@ public class CrossFade : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         myAnimator.SetTrigger("End");
-    }
-
-    public void RunFadeOutAnimation()
-    {
-        StartCoroutine(FadeInTransition());
     }
 }
