@@ -149,6 +149,7 @@ MonoBehaviour:
   _initialTeam: 0
   Radius: 5
   Type: 0
+  Sprites: []
 --- !u!50 &1904315001140427321
 Rigidbody2D:
   serializedVersion: 4
