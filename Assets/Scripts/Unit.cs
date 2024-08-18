@@ -49,13 +49,13 @@ public class Unit : MonoBehaviour
         return colour;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Hp = GetComponent<Health>();
         Team = _initialTeam;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         UpdateColor();
     }
