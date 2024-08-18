@@ -2,5 +2,8 @@ public enum ResourceTypes
 {
     None,
     Wood,
-    Stone
+    Stone,
+    Water,
+    Lava,
+    Mountain
 }
