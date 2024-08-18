@@ -56,6 +56,7 @@ public class PlayerMouse : MonoBehaviour
         {
             _mouseEnd = transform.position;
             _pressTime += Time.deltaTime;
+            SelectionBoxSprite.SetActive(true);
             SelectionBoxSprite.transform.position = (_mouseStart + _mouseEnd) / 2;
             SelectionBoxSprite.transform.localScale = Abs(_mouseStart, _mouseEnd);
         }
@@ -107,6 +108,7 @@ public class PlayerMouse : MonoBehaviour
             SelectUnits();
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
+        SelectionBoxSprite.SetActive(false);
     }
 
     private Unit CurrentlyHoveringOver()
