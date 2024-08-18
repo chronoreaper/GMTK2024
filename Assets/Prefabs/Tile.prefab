@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214b461c6985b3240bf9585cdeb78279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  None: {fileID: 0}
+  Wood: {fileID: 21300000, guid: b03f8b38bd744ee44a990bf5458c2b55, type: 3}
+  Stone: {fileID: 21300000, guid: 43e4c060034069d40a154e4d7ca527f0, type: 3}
+  Lava: {fileID: 21300000, guid: 08da9e24a0c514245bc917a844a6a3dc, type: 3}
+  Mountain: {fileID: 21300000, guid: 4e41b7813d54d3f4e9a1d14c33bb73ba, type: 3}
