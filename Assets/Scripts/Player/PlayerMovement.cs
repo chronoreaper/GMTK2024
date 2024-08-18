@@ -11,11 +11,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls _playerControls;
     private InputAction _movementInput;
     private Vector2 _movementDirection;
+    private Animator _animator;
 
     private void Awake()
     {
         _playerControls = new PlayerControls();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         _movementInput = _playerControls.Player.Move;
     }
     
@@ -25,20 +27,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Movement();
+        PlayAnimations();
+        RotatePlayer();
+    }
+
+    private void Movement()
+    {
         _movementDirection = _movementInput.ReadValue<Vector2>();
         
         _rb.velocity = _movementDirection * speed;
     }
 
+    private void PlayAnimations()
+    {
+        _animator.SetFloat("Horizontal", _movementDirection.x);
+        _animator.SetFloat("Vertical", _movementDirection.y);
+        _animator.SetBool("Walking", _movementDirection != Vector2.zero);
+    }
+
     //TODO: Use Actual Animations
     private void RotatePlayer()
     {
-        if (_movementDirection == Vector2.zero)
+        var playerScale = transform.localScale;
+        
+        if (_movementDirection != Vector2.left)
         {
+            transform.localScale = new Vector3(1f, playerScale.y, playerScale.z);
             return;
         }
 
-        var angle = Mathf.Atan2(_movementDirection.y, _movementDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.localScale = new Vector3(-1f, playerScale.y, playerScale.z);
     }
 }
