@@ -5,8 +5,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerMouse : MonoBehaviour
 {
-    public GameObject SelectionBoxSprite;
+    public enum Layer
+    {
+        Planet,
+        System
+    }
 
+    public GameObject SelectionBoxSprite;
+    public SpawnFromButton Spawner;
+    public Layer CurrentLayer;
+
+    float _pressTime = 0;
     PlayerControls _playerControls;
     InputAction _click;
     InputAction _cursorPosition;
@@ -46,8 +55,26 @@ public class PlayerMouse : MonoBehaviour
         if (_click.IsInProgress())
         {
             _mouseEnd = transform.position;
+            _pressTime += Time.deltaTime;
             SelectionBoxSprite.transform.position = (_mouseStart + _mouseEnd) / 2;
             SelectionBoxSprite.transform.localScale = Abs(_mouseStart, _mouseEnd);
+        }
+
+        // Check if you selected a single planet
+        if (_selected.Count == 1)
+        {
+            Spawner.ReferencedBoard = null;
+            UnitPlanet planet = _selected[0].GetComponent<UnitPlanet>();
+            if (planet != null)
+            {
+                // Only show ui if you can build on planet
+                if (planet.Team == Unit.UnitTeam.Player)
+                    Spawner.ReferencedBoard = planet.ReferencedBoard;
+                else
+                    Spawner.ReferencedBoard = null;
+            }
+            else
+                Spawner.ReferencedBoard = null;
         }
     }
 
@@ -55,6 +82,7 @@ public class PlayerMouse : MonoBehaviour
     {
         _mouseStart = transform.position;
         _mouseEnd = transform.position;
+        _pressTime = 0;
         Unit hover = CurrentlyHoveringOver();
         if (hover != null && hover.Team == Unit.UnitTeam.Player)
             SelectUnits();
@@ -74,7 +102,8 @@ public class PlayerMouse : MonoBehaviour
     private void Release(InputAction.CallbackContext obj)
     {
         _mouseEnd = transform.position;
-        if ((_mouseEnd - _mouseStart).magnitude > 1)
+        // Box must be larger than a certain value and Must hold longer than a certain time
+        if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.2f)
             SelectUnits();
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;

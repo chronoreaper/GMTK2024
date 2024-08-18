@@ -33,7 +33,7 @@ public class Miner : AbstractBaseBuilding
     
     public override void Build()
     {
-        _resource = Board.GetTileByPosition(transform.position).Resource;
+        _resource = ReferencedBoard.GetTileByPosition(transform.position).Resource;
         StartCoroutine(nameof(Process));
     }
 
@@ -41,9 +41,9 @@ public class Miner : AbstractBaseBuilding
 
     public override bool CanBuild(Vector2 position)
     {
-        var tilePosition = Board.GetTileByPosition(position);
+        var tilePosition = ReferencedBoard.GetTileByPosition(position);
         
-        return tilePosition != null && tilePosition.Resource != ResourceTypes.None && Board.GetBuildingByPosition(position) == null;
+        return tilePosition != null && tilePosition.Resource != ResourceTypes.None && ReferencedBoard.GetBuildingByPosition(position) == null;
     }
 
     private IEnumerator Process()

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8187663494669036030}
   - component: {fileID: 8524662567221204540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1806596520640390968}
   - component: {fileID: 2084610228534937961}
   - component: {fileID: 5579675856911274195}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,10 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b037e00243a8b8b40beb74ed77d80a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 5
+  Radius: 0
   tilePrefab: {fileID: 5901151583629019439, guid: 6fdac45ce3b40354f8cc9fdaf1fd6aea, type: 3}
-  mainCamera: {fileID: 0}
+  _planetType: 0
 --- !u!114 &1147519868531922797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialTeam: 0
-  Spawner: {fileID: 0}
 --- !u!114 &1806596520640390968
 MonoBehaviour:
   m_ObjectHideFlags: 0

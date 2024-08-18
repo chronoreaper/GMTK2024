@@ -4,6 +4,17 @@ using UnityEngine.InputSystem;
 
 public class BuildingCreator : MonoBehaviour
 {
+    public Board ReferencedBoard 
+    {
+        get => _board;
+        set
+        {
+            _board = value;
+            buildingPrefab.ReferencedBoard = value;
+        }
+    }
+
+    private Board _board;
     [SerializeField] private AbstractBaseBuilding buildingPrefab;
     [SerializeField] private float tileSize;
     [SerializeField] private Vector2 tileOffset;
@@ -19,8 +30,9 @@ public class BuildingCreator : MonoBehaviour
     
     private AbstractBaseBuilding Create(Vector2 position, Quaternion rotation)
     {
-        var building = Instantiate(buildingPrefab, position, rotation);
-        Board.BuildingBoard.Add(transform.position, building);
+        AbstractBaseBuilding building = Instantiate(buildingPrefab, position, rotation);
+        building.ReferencedBoard = ReferencedBoard;
+        ReferencedBoard.BuildingBoard.Add(transform.position, building);
         
         return building;
     }

@@ -4,10 +4,29 @@ public class BoardTile : MonoBehaviour
 {
     public ResourceTypes Resource { get; private set; } = ResourceTypes.None;
     
-    public void Init(bool hasResources)
+    public void Init(ResourceTypes type)
     {
-        GetComponent<SpriteRenderer>().color = hasResources ? Color.green : Color.gray;
+        Resource = type;
+        GetComponent<SpriteRenderer>().color = GetResourceColour();
+    }
 
-        Resource = hasResources ? (ResourceTypes) Random.Range(1, 3) : ResourceTypes.None;
+    private Color GetResourceColour()
+    {
+        switch(Resource)
+        {
+            case ResourceTypes.None:
+                return Color.gray;
+            case ResourceTypes.Wood:
+                return Color.yellow;
+            case ResourceTypes.Lava:
+                return Color.red;
+            case ResourceTypes.Mountain:
+                return Color.black;
+            case ResourceTypes.Stone:
+                return Color.cyan;
+            case ResourceTypes.Water:
+                return Color.blue;
+        }
+        return Color.gray;
     }
 }
