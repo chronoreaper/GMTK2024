@@ -4,7 +4,7 @@ public class WorldViewManager : MonoBehaviour
 {
     public static WorldViewManager Instance { get; private set; }
 
-    private Views _currentView;
+    private Views _currentView = Views.GalaxyView;
     public Views CurrentView
     {
         get
@@ -20,7 +20,7 @@ public class WorldViewManager : MonoBehaviour
     }
 
     public delegate void OnViewChanged(Views newView);
-    public OnViewChanged onViewChanged;
+    public static OnViewChanged onViewChanged;
 
     private void Awake()
     {
@@ -32,10 +32,5 @@ public class WorldViewManager : MonoBehaviour
         {
             Instance = this;
         }
-    }
-
-    private void Start()
-    {
-        CurrentView = Views.GalaxyView;
     }
 }

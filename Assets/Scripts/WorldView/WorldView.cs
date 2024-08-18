@@ -4,12 +4,12 @@ public abstract class WorldView : MonoBehaviour
 {
     private void OnEnable()
     {
-        WorldViewManager.Instance.onViewChanged += WorldViewChanged;
+        WorldViewManager.onViewChanged += WorldViewChanged;
     }
 
     private void OnDisable()
     {
-        WorldViewManager.Instance.onViewChanged -= WorldViewChanged;
+        WorldViewManager.onViewChanged -= WorldViewChanged;
     }
 
     protected abstract void WorldViewChanged(Views newView);

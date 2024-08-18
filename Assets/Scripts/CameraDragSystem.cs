@@ -27,7 +27,7 @@ public class CameraDragSystem : MonoBehaviour
 
     private void OnEnable()
     {
-        _click = _playerControls.Player.Click;
+        _click = _playerControls.Player.RightClick;
         _click.Enable();
         _click.performed += MouseDown;
         _click.canceled += MouseUp;
@@ -116,5 +116,15 @@ public class CameraDragSystem : MonoBehaviour
         Vector3 moveDir = transform.up * inputDir.y + transform.right * inputDir.x;
 
         transform.position += edgeScrollingSpeed * Time.deltaTime * moveDir;
+    }
+
+    public void LockDrag()
+    {
+        useDragPan = false;
+    }
+
+    public void UnlockDrag()
+    {
+        useDragPan = true;
     }
 }
