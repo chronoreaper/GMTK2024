@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Board;
 
 public class UnitPlanet : Unit
 {
     public int Radius = 5;
+    public PlanetType Type;
 
     public Board ReferencedBoard { get; private set; } = null;
+    public PlanetSpriteResource[] Sprites;
 
     private UnitBase _base;
+    private SpriteRenderer _sr;
 
     protected override void Awake()
     {
@@ -16,12 +20,24 @@ public class UnitPlanet : Unit
         _base = GetComponentInChildren<UnitBase>();
         ReferencedBoard = GetComponentInChildren<Board>();
         ReferencedBoard.Radius = Radius - 1;
+        ReferencedBoard.Type = Type;
+        OnValidate();
+    }
 
-        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-        if (sr != null)
+    protected override void OnValidate()
+    {
+        _sr = GetComponentInChildren<SpriteRenderer>();
+        if (_sr != null)
         {
-            sr.transform.localScale = new Vector2(Radius, Radius) * 2;
+            _sr.transform.localScale = new Vector2(Radius, Radius) * 2;
         }
+        CircleCollider2D collider = GetComponent<CircleCollider2D>();
+        if (collider != null)
+            collider.radius = Radius;
+
+        _base = GetComponentInChildren<UnitBase>();
+        _base.Team = Team;
+        UpdateSprite();
     }
 
     protected void Update()
@@ -36,5 +52,21 @@ public class UnitPlanet : Unit
     protected override void UpdateColor()
     {
         // TODO? do an outline?
+    }
+
+    void UpdateSprite()
+    {
+        // Get the sprite
+        PlanetSpriteResource sprite = null;
+        foreach (var i in Sprites)
+        {
+            if (i.Type == Type)
+                sprite = i;
+        }
+        if (sprite == null)
+            return;
+
+        _sr.sprite = sprite.Sprite;
+
     }
 }
