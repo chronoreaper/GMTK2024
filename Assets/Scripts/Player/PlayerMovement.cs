@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Health))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Unit
 {
     [Header("PlayerMovement Settings")] 
     [SerializeField] private float speed;
@@ -13,8 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _movementDirection;
     private Animator _animator;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _playerControls = new PlayerControls();
         _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Movement();
         PlayAnimations();
-        RotatePlayer();
     }
 
     private void Movement()
@@ -46,17 +45,8 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("Walking", _movementDirection != Vector2.zero);
     }
 
-    //TODO: Use Actual Animations
-    private void RotatePlayer()
+    protected override void UpdateColor()
     {
-        var playerScale = transform.localScale;
         
-        if (_movementDirection != Vector2.left)
-        {
-            transform.localScale = new Vector3(1f, playerScale.y, playerScale.z);
-            return;
-        }
-
-        transform.localScale = new Vector3(-1f, playerScale.y, playerScale.z);
     }
 }
