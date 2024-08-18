@@ -3,25 +3,14 @@ using UnityEngine;
 
 public class CrossFade : MonoBehaviour
 {
+    [SerializeField] private float transitionTime = 1f;
+
     private Animator myAnimator;
 
-    private float transitionTime = 1f;
 
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
-    }
-
-    private void OnEnable()
-    {
-        SwitchMapView.onSwitchPlanetView += RunFadeAnimation;
-        SwitchMapView.onSwitchGalaxyView += RunFadeAnimation;
-    }
-
-    private void OnDisable()
-    {
-        SwitchMapView.onSwitchPlanetView -= RunFadeAnimation;
-        SwitchMapView.onSwitchGalaxyView -= RunFadeAnimation;
     }
 
     private void RunFadeAnimation()
