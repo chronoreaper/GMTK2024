@@ -61,10 +61,21 @@ public class PlayerMouse : MonoBehaviour
             SelectionBoxSprite.transform.localScale = Abs(_mouseStart, _mouseEnd);
         }
 
+        // Check if selected objects are not destroyed
+        int i = 0;
+        while(i < _selected.Count)
+        {
+            if (_selected[i] == null)
+            {
+                _selected.RemoveAt(i);
+            }
+            else
+                i++;
+        }
+
         // Check if you selected a single planet
         if (_selected.Count == 1)
         {
-            Spawner.ReferencedBoard = null;
             UnitPlanet planet = _selected[0].GetComponent<UnitPlanet>();
             if (planet != null)
             {
@@ -77,6 +88,8 @@ public class PlayerMouse : MonoBehaviour
             else
                 Spawner.ReferencedBoard = null;
         }
+        else
+            Spawner.ReferencedBoard = null;
     }
 
     private void Click(InputAction.CallbackContext obj)

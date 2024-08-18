@@ -16,5 +16,6 @@ public class HealthBase : Health
         {
             unit.Team = _lastDamagedBy.Team;
         }
+        CurrentHealth = maxHealth;
     }
 }
