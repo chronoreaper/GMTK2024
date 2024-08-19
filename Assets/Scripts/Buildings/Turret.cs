@@ -11,18 +11,28 @@ public class Turret : AbstractBaseBuilding
     [SerializeField] private float fireRate;
     [SerializeField] private float offsetRotation;
 
+    [Header("Turret Sprites")]
+    public Sprite PlayerGun;
+    public Sprite PlayerBase;
+    public Sprite EnemyGun;
+    public Sprite EnemyBase;
+    [SerializeField] SpriteRenderer _gunSr;
+    [SerializeField] SpriteRenderer _baseSr;
+
     private Unit _unit;
     private float _timeSinceLastShot;
     
     public override void Build()
     {
         _unit = GetComponent<Unit>();
+        UpdateSprite();
         base.Build();
     }
 
     public override void OnBaseCaptured(Unit.UnitTeam team)
     {
         _unit.Team = _unit.Team == Unit.UnitTeam.Player ? Unit.UnitTeam.Enemy : Unit.UnitTeam.Player;
+        UpdateSprite();
     }
 
     public override bool CanBuild(Vector2 position)
@@ -76,6 +86,20 @@ public class Turret : AbstractBaseBuilding
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + offsetRotation;
         
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 6 * Time.deltaTime);
+    }
+
+    private void UpdateSprite()
+    {
+        if (_unit.Team == Unit.UnitTeam.Player)
+        {
+            _gunSr.sprite = PlayerGun;
+            _baseSr.sprite = PlayerBase;
+        }
+        else
+        {
+            _gunSr.sprite = EnemyGun;
+            _baseSr.sprite = EnemyBase;
+        }
     }
 
     private Collider2D GetClosetEnemy()

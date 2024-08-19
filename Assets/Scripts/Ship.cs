@@ -12,6 +12,9 @@ public class Ship : MonoBehaviour
     public float AtkRange = 3f;
     public float AtkRate = 1f;
 
+    public Sprite PlayerSprite;
+    public Sprite EnemySprite;
+
     bool _canAttack = true;
     Unit _unit = null;
     Unit _target = null;
@@ -29,6 +32,14 @@ public class Ship : MonoBehaviour
         transform.position = position;
         transform.rotation = rotation;
         _unit.Team = team;
+        if (team == Unit.UnitTeam.Player)
+        {
+            _sr.sprite = PlayerSprite;
+        }
+        else
+        {
+            _sr.sprite = EnemySprite;
+        }
     }
 
 
