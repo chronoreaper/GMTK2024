@@ -1706,6 +1706,10 @@ PrefabInstance:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 827997571}
+    - target: {fileID: 3523541704217655167, guid: 7385ffd8dae66d442b61070dc17c29ac, type: 3}
+      propertyPath: wheelZoomSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6610277435266574392, guid: 7385ffd8dae66d442b61070dc17c29ac, type: 3}
       propertyPath: m_Name
       value: CameraSystem

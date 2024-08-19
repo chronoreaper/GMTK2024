@@ -18,9 +18,9 @@ public class CameraZoomSystem : WorldView
     private Coroutine currentZoomCoroutine;
     private Coroutine currentCameraCoroutine;
 
-    [Header("Scroll Wheel Zoom")]
-    [Range(1,5)] [SerializeField] private float wheelZoomSpeed;
-    [SerializeField] private float maxZoomDistance;
+
+    private float maxZoomDistance;
+    private float minZoomDistance;
 
     private PlayerControls _playerControls;
     private InputAction _scrollWheel;
@@ -35,14 +35,15 @@ public class CameraZoomSystem : WorldView
     {
         initialZoomAmount = virtualCamera.m_Lens.OrthographicSize;
         targetZoomAmont = initialZoomAmount - zoomIncreaseAmount;
+
+        maxZoomDistance = initialZoomAmount * 2;
+        minZoomDistance = targetZoomAmont;
     }
 
     private void OnEnable()
     {
         PlayerMouse.planetSelected += ZoomInToPlanet;
         PlayerMouse.planetDeselected += ZoomOutToGalaxy;
-<<<<<<< HEAD
-
         
         _scrollWheel = _playerControls.Player.ScrollWheel;
         _scrollWheel.Enable();
@@ -50,25 +51,15 @@ public class CameraZoomSystem : WorldView
 
         _cursorPosition = _playerControls.Player.CusorPosition;
         _cursorPosition.Enable();
-=======
->>>>>>> 1d9753ece27c618ba4f8bd7ade8f8b06e141629f
     }
 
     private void OnDisable()
     {
         PlayerMouse.planetSelected -= ZoomInToPlanet;
         PlayerMouse.planetDeselected -= ZoomOutToGalaxy;
-<<<<<<< HEAD
 
         _scrollWheel.Disable();
         _cursorPosition.Disable();
-    }
-
-    private void Update()
-    {
-        HandelCameraZoom();
-=======
->>>>>>> 1d9753ece27c618ba4f8bd7ade8f8b06e141629f
     }
 
     private void ZoomInToPlanet(Vector2 planetLocation)
@@ -131,6 +122,8 @@ public class CameraZoomSystem : WorldView
         }
 
         virtualCamera.m_Lens.OrthographicSize = zoomAmount;
+        
+        currentZoomCoroutine = null;
     }
 
     private IEnumerator SmoothCameraMovementCorountine(Vector2 planetLocation)
@@ -149,19 +142,26 @@ public class CameraZoomSystem : WorldView
 
     private void ZoomInOut(InputAction.CallbackContext context)
     {
+        if (currentCameraCoroutine != null || currentZoomCoroutine != null)
+        {
+            return;
+        }
+
+        float zoomAmount = 2;
+        float currentZoom = virtualCamera.m_Lens.OrthographicSize;
+
         if (context.ReadValue<Vector2>().y > 0)
         {
-            Debug.Log("Zoom In");
+            currentZoom -= zoomAmount;
         }
         else if (context.ReadValue<Vector2>().y < 0)
         {
-            Debug.Log("Zoom Out");
+            currentZoom += zoomAmount;
         }
-    }
 
-    private void HandelCameraZoom()
-    {
+        currentZoom = Mathf.Clamp(currentZoom, minZoomDistance, maxZoomDistance);
         
+        virtualCamera.m_Lens.OrthographicSize = currentZoom;
     }
 
     protected override void WorldViewChanged(Views newView)
