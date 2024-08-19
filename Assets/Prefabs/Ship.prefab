@@ -168,9 +168,9 @@ MonoBehaviour:
   shootPoint: {fileID: 2228299282551704011}
   offsetRotation: 90
   Shot: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
-  Speed: 3
+  Speed: 1
   VisionRange: 100
-  AtkRange: 3
+  AtkRange: 2
   AtkRate: 1
   PlayerSprite: {fileID: 21300000, guid: b14c09e293c9d2944b8058d8074c1e4d, type: 3}
   EnemySprite: {fileID: 21300000, guid: f3ff66837e347a64ca552128b153a61f, type: 3}
