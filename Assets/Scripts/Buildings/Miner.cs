@@ -1,17 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Miner : AbstractBaseBuilding
 {
-    [SerializeField] private UnityEvent<int> OnResourceGenerated = new();
-    
     [Header("Miner Settings")] 
     [SerializeField] private float timeToGenerate;
     [SerializeField] private int amountToGenerate;
     [SerializeField] private int maxAmount;
-
-    //public override BuildingType Type { get; protected set; } = BuildingType.Miner;
     
     protected ResourceTypes _resource = ResourceTypes.Stone;
     private int _amount;
@@ -23,7 +18,7 @@ public class Miner : AbstractBaseBuilding
         {
             if (_amount >= maxAmount)
             {
-                _amount = maxAmount;
+                _amount = 0;
                 return;
             }
             
@@ -56,8 +51,6 @@ public class Miner : AbstractBaseBuilding
         }
     }
 
-    private void Awake() => OnResourceGenerated?.Invoke(AmountGenerated);
-
     public override bool CanBuild(Vector2 position)
     {
         var tilePosition = ReferencedBoard.GetTileByPosition(position);
@@ -69,7 +62,6 @@ public class Miner : AbstractBaseBuilding
     {
         yield return new WaitForSeconds(timeToGenerate);
         AmountGenerated += amountToGenerate;
-        OnResourceGenerated?.Invoke(AmountGenerated);
         PlayerMouse.Inst.GainResources(_resource, amountToGenerate);
         
         StartCoroutine(nameof(Process));

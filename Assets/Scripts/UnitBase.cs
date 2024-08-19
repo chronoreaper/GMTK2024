@@ -30,12 +30,14 @@ public class UnitBase : Unit
         }
         
         OnBaseCaptured?.Invoke(Team);
+        WinManager.Instance.UpdateConquerPercentage(Team);
         StartCoroutine(nameof(ResetEnemySpawn));
     }
 
     private IEnumerator ResetEnemySpawn()
     {
         yield return new WaitForSeconds(resetTime);
+        StopCoroutine(nameof(SpawnUnit));
         StartCoroutine(nameof(SpawnUnit));
     }
 
@@ -49,5 +51,6 @@ public class UnitBase : Unit
         var rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 361));
         
         ship.Init(position, rotation, Team);
+        StartCoroutine(nameof(SpawnUnit));
     }
 }

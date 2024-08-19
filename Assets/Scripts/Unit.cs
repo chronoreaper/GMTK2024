@@ -57,8 +57,6 @@ public class Unit : MonoBehaviour
     protected virtual void Start()
     {
         Team = _initialTeam;
-
-        UpdateColor();
     }
 
     protected virtual void OnValidate()
