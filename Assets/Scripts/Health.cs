@@ -8,8 +8,6 @@ public class Health : MonoBehaviour
     private float _currentHealth;
     protected Unit _lastDamagedBy;
 
-    private float setMaxHealth;
-
     public float CurrentHealth
     {
         get => _currentHealth;
@@ -32,12 +30,9 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void Awake()
+    private void Start()
     {
-        if (setMaxHealth < maxHealth)
-        {
-            CurrentHealth = maxHealth;
-        }
+        CurrentHealth = maxHealth;     
     }
 
     private void Damage(float damage) => CurrentHealth -= damage;
@@ -57,8 +52,6 @@ public class Health : MonoBehaviour
 
     public void SetMaxHealth(float hp)
     {
-        setMaxHealth = hp;
-
-        CurrentHealth = hp;
+        maxHealth = hp;
     }
 }

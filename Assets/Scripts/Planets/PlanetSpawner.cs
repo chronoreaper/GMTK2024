@@ -106,13 +106,13 @@ public class PlanetSpawner : MonoBehaviour
     {
         int randomTeamIndex = Random.Range(0, unitTeams.Count);
         
+        Debug.Log("Swpan " + unitTeams[randomTeamIndex]);
         return unitTeams[randomTeamIndex];
     }
 
     private Board.PlanetType GetRandomPlanetType()
     {
         int randomTypeIndex = Random.Range(0, planetTypes.Count);
-        
         return planetTypes[randomTypeIndex];
     }
 
