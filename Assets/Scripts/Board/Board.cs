@@ -118,4 +118,8 @@ public class Board : MonoBehaviour
 
         return resource;
     }
+
+    public void SetPlanetType(PlanetType planetType) => Type = planetType;
+
+    public void SetBaseMaxHealth(float hp) => GetComponent<HealthBase>().SetMaxHealth(hp);
 }
