@@ -19,9 +19,15 @@ public class UnitPlanet : Unit
         base.Awake();
         _base = GetComponentInChildren<UnitBase>();
         ReferencedBoard = GetComponentInChildren<Board>();
+        OnValidate();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
         ReferencedBoard.Radius = Radius - 1;
         ReferencedBoard.Type = Type;
-        OnValidate();
     }
 
     protected override void OnValidate()
@@ -71,9 +77,9 @@ public class UnitPlanet : Unit
     {
         // this.Hp.CurrentHealth = health;
         this.Hp.SetMaxHealth(health);
-        this.Team = team;
+        _base.Team = team;
         this.Radius = radius;
-        this.ReferencedBoard.SetPlanetType(planetType);
+        this.Type = planetType;
         this.ReferencedBoard.SetBaseMaxHealth(health);
     }
 }
