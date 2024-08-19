@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7830333569545674024
 Transform:
   m_ObjectHideFlags: 0
@@ -215,3 +215,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionBoxSprite: {fileID: 1158681318379112178}
+  Spawner: {fileID: 0}
+  CurrentLayer: 0

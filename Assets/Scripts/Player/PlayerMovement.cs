@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Health))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Unit
 {
     [Header("PlayerMovement Settings")] 
     [SerializeField] private float speed;
@@ -11,11 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls _playerControls;
     private InputAction _movementInput;
     private Vector2 _movementDirection;
+    private Animator _animator;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _playerControls = new PlayerControls();
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
         _movementInput = _playerControls.Player.Move;
     }
     
@@ -25,20 +27,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Movement();
+        PlayAnimations();
+    }
+
+    private void Movement()
+    {
         _movementDirection = _movementInput.ReadValue<Vector2>();
         
         _rb.velocity = _movementDirection * speed;
     }
 
-    //TODO: Use Actual Animations
-    private void RotatePlayer()
+    private void PlayAnimations()
     {
-        if (_movementDirection == Vector2.zero)
-        {
-            return;
-        }
+        _animator.SetFloat("Horizontal", _movementDirection.x);
+        _animator.SetFloat("Vertical", _movementDirection.y);
+        _animator.SetBool("Walking", _movementDirection != Vector2.zero);
+    }
 
-        var angle = Mathf.Atan2(_movementDirection.y, _movementDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    protected override void UpdateColor()
+    {
+        
     }
 }
