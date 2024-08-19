@@ -1,32 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMouse : MonoBehaviour
+public class PlayerMouse : WorldView
 {
     public static PlayerMouse Inst { get; private set; }
-    public enum Layer
-    {
-        Planet,
-        System
-    }
 
     public GameObject SelectionBoxSprite;
     public SpawnFromButton Spawner;
-    public Layer CurrentLayer;
+
+    private Views CurrentLayer;
+    
     public UIDisplay UITop;
 
-    float _pressTime = 0;
-    PlayerControls _playerControls;
-    InputAction _click;
-    InputAction _cursorPosition;
+    private float _pressTime = 0;
+    private PlayerControls _playerControls;
+    private InputAction _click;
+    private InputAction _cursorPosition;
 
-    Dictionary<ResourceTypes, int> _resources = new();
-    List<Unit> _selected = new List<Unit>();
-    Vector2 _mouseStart = new Vector2();
-    Vector2 _mouseEnd = new Vector2();
+    private Dictionary<ResourceTypes, int> _resources = new();
+    private List<Unit> _selected = new();
+    private Vector2 _mouseStart = new();
+    private Vector2 _mouseEnd = new();
 
+    public delegate void PlanetSelected(Vector2 planetPosition);
+    public static PlanetSelected planetSelected;
+
+    public delegate void PlanetDeselected();
+    public static PlanetDeselected planetDeselected;
 
     // TODO maybe move it into its own class?
     public void GainResources(ResourceTypes type, int amount)
@@ -54,10 +55,11 @@ public class PlayerMouse : MonoBehaviour
     private void OnEnable()
     {
         _click = _playerControls.Player.Click;
-        _cursorPosition = _playerControls.Player.CusorPosition;
         _click.Enable();
         _click.performed += Click;
         _click.canceled += Release;
+
+        _cursorPosition = _playerControls.Player.CusorPosition;
         _cursorPosition.Enable();
     }
 
@@ -67,11 +69,10 @@ public class PlayerMouse : MonoBehaviour
         _cursorPosition.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         transform.position = (Vector2)Camera.main.ScreenToWorldPoint(_cursorPosition.ReadValue<Vector2>());
-        var unit = CurrentlyHoveringOver();
+        // var unit = CurrentlyHoveringOver();
 
         if (_click.IsInProgress())
         {
@@ -93,24 +94,6 @@ public class PlayerMouse : MonoBehaviour
             else
                 i++;
         }
-
-        // Check if you selected a single planet
-        if (_selected.Count == 1)
-        {
-            UnitPlanet planet = _selected[0].GetComponent<UnitPlanet>();
-            if (planet != null)
-            {
-                // Only show ui if you can build on planet
-                if (planet.Team == Unit.UnitTeam.Player)
-                    Spawner.ReferencedBoard = planet.ReferencedBoard;
-                else
-                    Spawner.ReferencedBoard = null;
-            }
-            else
-                Spawner.ReferencedBoard = null;
-        }
-        else
-            Spawner.ReferencedBoard = null;
     }
 
     private void Click(InputAction.CallbackContext obj)
@@ -131,15 +114,21 @@ public class PlayerMouse : MonoBehaviour
             SelectUnits();
         else
         {
-            // Move units
-            foreach (var selected in _selected)
+            planetDeselected?.Invoke();
+            Spawner.ReferencedBoard = null;
+            
+            if (_selected.Count > 0)
             {
-                Ship ship = selected.GetComponent<Ship>();
-                if (ship == null)
-                    continue;
-                ship.MoveTowards(transform.position);
+                // Move units
+                foreach(var selected in _selected)
+                {
+                    if (!selected.TryGetComponent<Ship>(out var ship))
+                        continue;
+                    ship.MoveTowards(transform.position);
+                }
             }
         }
+
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
         SelectionBoxSprite.SetActive(false);
@@ -157,6 +146,38 @@ public class PlayerMouse : MonoBehaviour
     {
         _selected.Clear();
         Collider2D[] results = Physics2D.OverlapBoxAll(Vector2.Min(_mouseStart, _mouseEnd), Abs(_mouseStart, _mouseEnd), 0);
+
+        // Check if you selected a single planet
+        if (results.Length == 1)
+        {
+            results[0].TryGetComponent(out Unit other);
+
+            if (other == null || other.Team != Unit.UnitTeam.Player)
+            {
+                planetDeselected?.Invoke();
+                return;
+            }
+
+            _selected.Add(other);
+
+            if (_selected[0].TryGetComponent<UnitPlanet>(out var planet))
+            {
+                planetSelected?.Invoke(planet.transform.position);
+                // Only show ui if you can build on planet
+                if (planet.Team == Unit.UnitTeam.Player)
+                    Spawner.ReferencedBoard = planet.ReferencedBoard;
+            }
+            else
+            {
+                planetDeselected?.Invoke();
+
+                Spawner.ReferencedBoard = null;
+            }
+            return;
+        }
+
+        planetDeselected?.Invoke();
+
         // Get closest target that is not on team
         foreach (Collider2D result in results)
         {
@@ -167,10 +188,34 @@ public class PlayerMouse : MonoBehaviour
                 continue;
             _selected.Add(other);
         }
+
+        // Check if you selected a single planet
+        // if (_selected.Count == 1)
+        // {
+        //     Spawner.ReferencedBoard = null;
+        //     if (_selected[0].TryGetComponent<UnitPlanet>(out var planet))
+        //     {
+        //         planetSelected?.Invoke(planet.transform.position);
+        //         // Only show ui if you can build on planet
+        //         if (planet.Team == Unit.UnitTeam.Player)
+        //             Spawner.ReferencedBoard = planet.ReferencedBoard;
+        //     };
+        // }
+        // else
+        // {
+        //     planetDeselected?.Invoke();
+
+        //     Spawner.ReferencedBoard = null;
+        // }
     }
 
     private Vector2 Abs(Vector2 a, Vector2 b)
     {
         return new Vector2(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
+    }
+
+    protected override void WorldViewChanged(Views newView)
+    {
+        CurrentLayer = newView;
     }
 }
