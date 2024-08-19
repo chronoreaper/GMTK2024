@@ -16,6 +16,7 @@ public class PlayerMouse : WorldView
     private float _pressTime = 0;
     private PlayerControls _playerControls;
     private InputAction _click;
+    private InputAction _back;
     private InputAction _cursorPosition;
 
     private Dictionary<ResourceTypes, int> _resources = new();
@@ -59,6 +60,10 @@ public class PlayerMouse : WorldView
         _click.performed += Click;
         _click.canceled += Release;
 
+        _back = _playerControls.Player.RightClick;
+        _back.Enable();
+        _back.performed += Cancel;
+
         _cursorPosition = _playerControls.Player.CusorPosition;
         _cursorPosition.Enable();
     }
@@ -67,6 +72,7 @@ public class PlayerMouse : WorldView
     {
         _click.Disable();
         _cursorPosition.Disable();
+        _back.Disable();
     }
 
     private void Update()
@@ -80,7 +86,7 @@ public class PlayerMouse : WorldView
             _pressTime += Time.deltaTime;
             SelectionBoxSprite.SetActive(true);
             SelectionBoxSprite.transform.position = (_mouseStart + _mouseEnd) / 2;
-            SelectionBoxSprite.transform.localScale = Abs(_mouseStart, _mouseEnd);
+            SelectionBoxSprite.transform.localScale = Abs(_mouseEnd - _mouseStart);
         }
 
         // Check if selected objects are not destroyed
@@ -101,6 +107,11 @@ public class PlayerMouse : WorldView
         _mouseStart = transform.position;
         _mouseEnd = transform.position;
         _pressTime = 0;
+
+        if (_selected.Count == 0)
+        {
+            Cancel(obj);
+        }
     }
 
     private void Release(InputAction.CallbackContext obj)
@@ -112,26 +123,26 @@ public class PlayerMouse : WorldView
             SelectUnits();
         else if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.1f)
             SelectUnits();
-        else
+        else if (_selected.Count > 0)
         {
-            planetDeselected?.Invoke();
-            Spawner.ReferencedBoard = null;
-            
-            if (_selected.Count > 0)
+            // Move units
+            foreach (var selected in _selected)
             {
-                // Move units
-                foreach(var selected in _selected)
-                {
-                    if (!selected.TryGetComponent<Ship>(out var ship))
-                        continue;
-                    ship.MoveTowards(transform.position);
-                }
+                if (!selected.TryGetComponent<Ship>(out var ship))
+                    continue;
+                ship.MoveTowards(transform.position);
             }
         }
 
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
         SelectionBoxSprite.SetActive(false);
+    }
+
+    private void Cancel(InputAction.CallbackContext obj)
+    {
+        planetDeselected?.Invoke();
+        Spawner.ReferencedBoard = null;
     }
 
     private Unit CurrentlyHoveringOver()
@@ -145,16 +156,18 @@ public class PlayerMouse : WorldView
     private void SelectUnits()
     {
         _selected.Clear();
-        Collider2D[] results = Physics2D.OverlapBoxAll(Vector2.Min(_mouseStart, _mouseEnd), Abs(_mouseStart, _mouseEnd), 0);
+
+        Collider2D[] results = Physics2D.OverlapBoxAll((_mouseStart + _mouseEnd) / 2, Abs(_mouseEnd - _mouseStart), 0);
 
         // Check if you selected a single planet
         if (results.Length == 1)
         {
             results[0].TryGetComponent(out Unit other);
 
-            if (other == null || other.Team != Unit.UnitTeam.Player)
+            if (other != null && other.Team != Unit.UnitTeam.Player)
             {
-                planetDeselected?.Invoke();
+                //planetDeselected?.Invoke();
+                //Spawner.ReferencedBoard = null;
                 return;
             }
 
@@ -170,13 +183,15 @@ public class PlayerMouse : WorldView
             else
             {
                 planetDeselected?.Invoke();
-
                 Spawner.ReferencedBoard = null;
             }
             return;
         }
-
-        planetDeselected?.Invoke();
+        else if (results.Length == 0)
+        {
+            planetDeselected?.Invoke();
+            Spawner.ReferencedBoard = null;
+        }
 
         // Get closest target that is not on team
         foreach (Collider2D result in results)
@@ -209,9 +224,14 @@ public class PlayerMouse : WorldView
         // }
     }
 
-    private Vector2 Abs(Vector2 a, Vector2 b)
+    private Vector2 Abs(Vector2 a)
     {
-        return new Vector2(Mathf.Abs(a.x - b.x), Mathf.Abs(a.y - b.y));
+        return new Vector2(Mathf.Abs(a.x), Mathf.Abs(a.y));
+    }
+
+    private Vector2 Min(Vector2 a, Vector2 b)
+    {
+        return new Vector2(Mathf.Min(a.x, b.x), Mathf.Min(a.y, b.y));
     }
 
     protected override void WorldViewChanged(Views newView)
