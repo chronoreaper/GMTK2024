@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlanetSpawner : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class PlanetSpawner : MonoBehaviour
 
     [Header("Spwan Area")]
     [SerializeField] private SpriteRenderer spawnArea;
-    private Vector2 spwanAreaSize;
+    private Vector2 _spawnAreaSize;
 
     private readonly List<Unit.UnitTeam> unitTeams = new()
     {
@@ -36,7 +38,7 @@ public class PlanetSpawner : MonoBehaviour
     private void Start()
     {
         spawnArea.transform.position = Vector2.zero;
-        spwanAreaSize = new Vector2(spawnArea.bounds.size.x / 2, spawnArea.bounds.size.y / 2);
+        _spawnAreaSize = new Vector2(spawnArea.bounds.size.x / 2, spawnArea.bounds.size.y / 2);
         spawnArea.gameObject.SetActive(false);
 
         SpawnPlanets();
@@ -55,8 +57,8 @@ public class PlanetSpawner : MonoBehaviour
 
     private Vector2 GetRandomPosition()
     {
-        float randomPositionX = Random.Range(-spwanAreaSize.x, spwanAreaSize.x);
-        float randomPositionY = Random.Range(-spwanAreaSize.y, spwanAreaSize.y);
+        float randomPositionX = Random.Range(-_spawnAreaSize.x, _spawnAreaSize.x);
+        float randomPositionY = Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
         Vector2 randomPosition = new(randomPositionX, randomPositionY);
 
         if (IsPositionOccupied(randomPosition, maxRadius * 2))
@@ -74,6 +76,12 @@ public class PlanetSpawner : MonoBehaviour
 
     private bool IsPositionOccupied(Vector2 pos, float radius)
     {
+        //Change this at your own risk
+        if (_spawnAreaSize.x < 150 && _spawnAreaSize.y < 100 || numberOfPlanetsToSpawn > 20)
+        {
+            throw new OutOfMemoryException("Make The Spawn Area Bigger Or There Will Be a Memory Leak!");
+        }
+        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius);
         return colliders.Length > 0;
     }

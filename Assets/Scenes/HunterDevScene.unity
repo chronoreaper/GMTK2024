@@ -774,8 +774,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
+      propertyPath: maxRadius
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
+      propertyPath: minRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: numberOfPlanetsToSpawn
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4097115680295987241, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -823,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.x
-      value: 178.33789
+      value: 10.672609
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.y
@@ -831,7 +839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4396
+      value: -29.7114
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.y
