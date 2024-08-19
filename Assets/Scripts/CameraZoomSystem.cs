@@ -1,10 +1,14 @@
 using System.Collections;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraZoomSystem : WorldView
 {
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
+
+    [Header("Galaxy / Planet Zoom")]
     [SerializeField] private float zoomIncreaseAmount;
     [SerializeField] private float zoomSpeed;
     [SerializeField] CameraDragSystem cameraDragSystem;
@@ -14,6 +18,19 @@ public class CameraZoomSystem : WorldView
     private Coroutine currentZoomCoroutine;
     private Coroutine currentCameraCoroutine;
 
+    [Header("Scroll Wheel Zoom")]
+    [Range(1,5)] [SerializeField] private float wheelZoomSpeed;
+    [SerializeField] private float maxZoomDistance;
+
+    private PlayerControls _playerControls;
+    private InputAction _scrollWheel;
+    private InputAction _cursorPosition;
+
+    private void Awake()
+    {
+        _playerControls = new PlayerControls();
+    }
+
     private void Start()
     {
         initialZoomAmount = virtualCamera.m_Lens.OrthographicSize;
@@ -22,14 +39,30 @@ public class CameraZoomSystem : WorldView
 
     private void OnEnable()
     {
-        PlayerMouse_Clone.planetSelected += ZoomInToPlanet;
-        PlayerMouse_Clone.planetDeselected += ZoomOutToGalaxy;
+        PlayerMouse.planetSelected += ZoomInToPlanet;
+        PlayerMouse.planetDeselected += ZoomOutToGalaxy;
+
+        
+        _scrollWheel = _playerControls.Player.ScrollWheel;
+        _scrollWheel.Enable();
+        _scrollWheel.performed += ZoomInOut;
+
+        _cursorPosition = _playerControls.Player.CusorPosition;
+        _cursorPosition.Enable();
     }
 
     private void OnDisable()
     {
-        PlayerMouse_Clone.planetSelected -= ZoomInToPlanet;
-        PlayerMouse_Clone.planetDeselected -= ZoomOutToGalaxy;
+        PlayerMouse.planetSelected -= ZoomInToPlanet;
+        PlayerMouse.planetDeselected -= ZoomOutToGalaxy;
+
+        _scrollWheel.Disable();
+        _cursorPosition.Disable();
+    }
+
+    private void Update()
+    {
+        HandelCameraZoom();
     }
 
     private void ZoomInToPlanet(Vector2 planetLocation)
@@ -106,6 +139,23 @@ public class CameraZoomSystem : WorldView
         }
 
         currentCameraCoroutine = null;
+    }
+
+    private void ZoomInOut(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<Vector2>().y > 0)
+        {
+            Debug.Log("Zoom In");
+        }
+        else if (context.ReadValue<Vector2>().y < 0)
+        {
+            Debug.Log("Zoom Out");
+        }
+    }
+
+    private void HandelCameraZoom()
+    {
+        
     }
 
     protected override void WorldViewChanged(Views newView)
