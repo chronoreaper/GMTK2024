@@ -16,6 +16,13 @@ public class Turret : AbstractBaseBuilding
     
     public override void Build() => _unit = GetComponent<Unit>();
 
+    public override bool CanBuild(Vector2 position)
+    {
+        var tilePosition = ReferencedBoard.GetTileByPosition(position);
+
+        return tilePosition != null && ReferencedBoard.GetBuildingByPosition(position) == null && (tilePosition.Resource == ResourceTypes.None || tilePosition.Resource == ResourceTypes.Water);
+    }
+
     private void Update()
     {
         _timeSinceLastShot += Time.deltaTime;

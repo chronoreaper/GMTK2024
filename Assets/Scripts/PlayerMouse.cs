@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMouse : MonoBehaviour
 {
+    public static PlayerMouse Inst { get; private set; }
     public enum Layer
     {
         Planet,
@@ -14,19 +15,39 @@ public class PlayerMouse : MonoBehaviour
     public GameObject SelectionBoxSprite;
     public SpawnFromButton Spawner;
     public Layer CurrentLayer;
+    public UIDisplay UITop;
 
     float _pressTime = 0;
     PlayerControls _playerControls;
     InputAction _click;
     InputAction _cursorPosition;
 
+    Dictionary<ResourceTypes, int> _resources = new();
     List<Unit> _selected = new List<Unit>();
     Vector2 _mouseStart = new Vector2();
     Vector2 _mouseEnd = new Vector2();
 
+
+    // TODO maybe move it into its own class?
+    public void GainResources(ResourceTypes type, int amount)
+    {
+        if (!_resources.ContainsKey(type))
+            _resources.Add(type, 0);
+        _resources[type] += amount;
+        UITop.ChangeResourceValue(type, _resources[type]);
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
+        if (Inst != null && Inst != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Inst = this;
+        }
         _playerControls = new PlayerControls();
     }
 
@@ -97,13 +118,21 @@ public class PlayerMouse : MonoBehaviour
         _mouseStart = transform.position;
         _mouseEnd = transform.position;
         _pressTime = 0;
+    }
+
+    private void Release(InputAction.CallbackContext obj)
+    {
+        _mouseEnd = transform.position;
+        // Box must be larger than a certain value and Must hold longer than a certain time
         Unit hover = CurrentlyHoveringOver();
         if (hover != null && hover.Team == Unit.UnitTeam.Player)
+            SelectUnits();
+        else if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.1f)
             SelectUnits();
         else
         {
             // Move units
-            foreach(var selected in _selected)
+            foreach (var selected in _selected)
             {
                 Ship ship = selected.GetComponent<Ship>();
                 if (ship == null)
@@ -111,14 +140,6 @@ public class PlayerMouse : MonoBehaviour
                 ship.MoveTowards(transform.position);
             }
         }
-    }
-
-    private void Release(InputAction.CallbackContext obj)
-    {
-        _mouseEnd = transform.position;
-        // Box must be larger than a certain value and Must hold longer than a certain time
-        if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.2f)
-            SelectUnits();
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
         SelectionBoxSprite.SetActive(false);
