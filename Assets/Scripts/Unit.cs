@@ -34,13 +34,13 @@ public class Unit : MonoBehaviour
         switch (Team)
         {
             case UnitTeam.Player:
-                colour = Color.blue;
+                colour = Color.white;
                 break;
             case UnitTeam.Enemy:
                 colour = Color.red;
                 break;
             case UnitTeam.Neutral:
-                colour = Color.gray;
+                colour = Color.green;
                 break;
             default:
                 colour = Color.white;
@@ -57,8 +57,6 @@ public class Unit : MonoBehaviour
     protected virtual void Start()
     {
         Team = _initialTeam;
-
-        UpdateColor();
     }
 
     protected virtual void OnValidate()
@@ -79,7 +77,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void UpdateColor()
     {
-        //var sr = transform.GetComponentInChildren<SpriteRenderer>();
-        //sr.color = GetTeamColour();
+        var sr = transform.GetComponentInChildren<SpriteRenderer>();
+        sr.color = GetTeamColour();
     }
 }

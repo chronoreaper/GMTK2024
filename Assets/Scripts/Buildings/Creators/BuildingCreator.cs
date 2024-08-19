@@ -20,7 +20,7 @@ public class BuildingCreator : MonoBehaviour
     [SerializeField] private Vector2 tileOffset;
 
     [Header("Rendering")] 
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer[] spriteRenderers;
     [SerializeField] private Color canBuildColor;
     [SerializeField] private Color cantBuildColor;
 
@@ -87,13 +87,16 @@ public class BuildingCreator : MonoBehaviour
 
     private void ChangeColor()
     {
+        Color color = cantBuildColor;
         if (buildingPrefab.CanBuild(transform.position))
         {
-            spriteRenderer.color = canBuildColor;
-            return;
+            color = canBuildColor;
         }
 
-        spriteRenderer.color = cantBuildColor;
+        foreach(var sr in spriteRenderers)
+        {
+            sr.color = color;
+        }
     }
 
     private void Cancel(InputAction.CallbackContext callbackContext) => Destroy(gameObject);
