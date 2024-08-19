@@ -34,6 +34,11 @@ public class Miner : AbstractBaseBuilding
     public override void Build()
     {
         _resource = ReferencedBoard.GetTileByPosition(transform.position).Resource;
+
+        // Some resource changes
+        if (_resource == ResourceTypes.Mountain)
+            _resource = ResourceTypes.Stone;
+
         StartCoroutine(nameof(Process));
     }
 
@@ -51,6 +56,7 @@ public class Miner : AbstractBaseBuilding
         yield return new WaitForSeconds(timeToGenerate);
         AmountGenerated += amountToGenerate;
         OnResourceGenerated?.Invoke(AmountGenerated);
+        PlayerMouse.Inst.GainResources(_resource, amountToGenerate);
         
         StartCoroutine(nameof(Process));
     }
