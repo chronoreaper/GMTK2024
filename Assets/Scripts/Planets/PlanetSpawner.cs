@@ -112,7 +112,6 @@ public class PlanetSpawner : MonoBehaviour
     private Board.PlanetType GetRandomPlanetType()
     {
         int randomTypeIndex = Random.Range(0, planetTypes.Count);
-        
         return planetTypes[randomTypeIndex];
     }
 

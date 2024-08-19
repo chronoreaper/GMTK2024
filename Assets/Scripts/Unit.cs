@@ -52,11 +52,12 @@ public class Unit : MonoBehaviour
     protected virtual void Awake()
     {
         Hp = GetComponent<Health>();
-        Team = _initialTeam;
     }
-
+    
     protected virtual void Start()
     {
+        Team = _initialTeam;
+
         UpdateColor();
     }
 
