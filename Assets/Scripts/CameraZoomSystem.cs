@@ -112,7 +112,7 @@ public class CameraZoomSystem : WorldView
 
     private IEnumerator SmoothZoomCoroutine(float zoomAmount)
     {
-        float tolerance = 0.01f;
+        float tolerance = 0.02f;
         while (Mathf.Abs(virtualCamera.m_Lens.OrthographicSize - zoomAmount) > tolerance)
         {
             virtualCamera.m_Lens.OrthographicSize =
@@ -150,11 +150,11 @@ public class CameraZoomSystem : WorldView
         float zoomAmount = 2;
         float currentZoom = virtualCamera.m_Lens.OrthographicSize;
 
-        if (context.ReadValue<Vector2>().y > 0)
+        if (context.ReadValue<Vector2>().y > 0.1)
         {
             currentZoom -= zoomAmount;
         }
-        else if (context.ReadValue<Vector2>().y < 0)
+        else if (context.ReadValue<Vector2>().y < 0.1)
         {
             currentZoom += zoomAmount;
         }

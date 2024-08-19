@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static CostToBuild;
 
 public class PlayerMouse : WorldView
 {
     public static PlayerMouse Inst { get; private set; }
+    public Dictionary<ResourceTypes, int> Resources { get; private set; } = new();
+
+    public CostToBuild[] BuildCosts;
 
     public GameObject SelectionBoxSprite;
     public SpawnFromButton Spawner;
@@ -19,7 +24,6 @@ public class PlayerMouse : WorldView
     private InputAction _back;
     private InputAction _cursorPosition;
 
-    private Dictionary<ResourceTypes, int> _resources = new();
     private List<Unit> _selected = new();
     private Vector2 _mouseStart = new();
     private Vector2 _mouseEnd = new();
@@ -33,10 +37,25 @@ public class PlayerMouse : WorldView
     // TODO maybe move it into its own class?
     public void GainResources(ResourceTypes type, int amount)
     {
-        if (!_resources.ContainsKey(type))
-            _resources.Add(type, 0);
-        _resources[type] += amount;
-        UITop.ChangeResourceValue(type, _resources[type]);
+        if (!Resources.ContainsKey(type))
+            Resources.Add(type, 0);
+        Resources[type] += amount;
+        UITop.ChangeResourceValue(type, Resources[type]);
+    }
+
+    public bool CanPayFor(BuildTypes unit)
+    {
+        foreach(var cost in BuildCosts)
+        {
+            if (cost.Building != unit)
+                continue;
+            foreach (ResourceCost rc in cost.Cost)
+            {
+                if (!Inst.Resources.ContainsKey(rc.Type)) return false;
+                if (Inst.Resources[rc.Type] < rc.Amount) return false;
+            }
+        }
+        return true;
     }
 
     // Start is called before the first frame update
@@ -51,6 +70,7 @@ public class PlayerMouse : WorldView
             Inst = this;
         }
         _playerControls = new PlayerControls();
+        GainResources(ResourceTypes.Water, 20);
     }
 
     private void OnEnable()

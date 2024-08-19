@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using static CostToBuild;
 
 public class Miner : AbstractBaseBuilding
 {
@@ -62,7 +63,7 @@ public class Miner : AbstractBaseBuilding
     {
         var tilePosition = ReferencedBoard.GetTileByPosition(position);
         
-        return tilePosition != null && tilePosition.Resource != ResourceTypes.None && ReferencedBoard.GetBuildingByPosition(position) == null;
+        return base.CanBuild(position) && tilePosition.Resource != ResourceTypes.None;
     }
 
     private IEnumerator Process()

@@ -59,7 +59,7 @@ public class UnitPlanet : Unit
 
     protected override void UpdateColor()
     {
-        // TODO? do an outline?
+        base.UpdateColor();
     }
 
     void UpdateSprite()
