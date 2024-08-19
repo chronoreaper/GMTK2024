@@ -79,7 +79,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void UpdateColor()
     {
-        var sr = transform.GetComponentInChildren<SpriteRenderer>();
-        sr.color = GetTeamColour();
+        //var sr = transform.GetComponentInChildren<SpriteRenderer>();
+        //sr.color = GetTeamColour();
     }
 }

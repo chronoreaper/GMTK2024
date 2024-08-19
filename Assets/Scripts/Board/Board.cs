@@ -65,6 +65,7 @@ public class Board : MonoBehaviour
                 // Make the grid like a circle
                 if (Mathf.Round(new Vector2(i, j).magnitude) >= Radius + 1)
                     continue;
+
                 Background.SetTile(new Vector3Int(i, j, 0), tiles.BaseTile);
             }
         }
@@ -77,23 +78,23 @@ public class Board : MonoBehaviour
         switch (Type)
         {
             case PlanetType.Forest:
-                if (rand <= 0.2)
+                if (rand <= 0.4)
                     type = ResourceTypes.Wood;
-                else if (rand <= 0.4)
-                    type = ResourceTypes.Water;
                 else if (rand <= 0.6)
                     type = ResourceTypes.Mountain;
+                else
+                    type = ResourceTypes.Water;
                 break;
             case PlanetType.Stone:
-                if (rand <= 0.5)
+                if (rand <= 0.3)
                     type = ResourceTypes.Stone;
-                else if (rand <= 0.7)
+                else if (rand <= 0.5)
                     type = ResourceTypes.Mountain;
                 break;
             case PlanetType.Lava:
-                if (rand <= 0.6)
+                if (rand <= 0.2)
                     type = ResourceTypes.Lava;
-                else if (rand <= 0.8)
+                else if (rand <= 0.6)
                     type = ResourceTypes.Mountain;
                 break;
         }
