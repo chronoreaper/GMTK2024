@@ -396,6 +396,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1563564518321180737, guid: 963c79fa0d9f68949932769ddc2bfcd1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6724096903945927140, guid: 963c79fa0d9f68949932769ddc2bfcd1, type: 3}
       propertyPath: m_Name
       value: Ship (1)
@@ -491,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1893569a1679647b2503289d43934f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
+  bulletPrefab: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
 --- !u!4 &681081173
 Transform:
   m_ObjectHideFlags: 0

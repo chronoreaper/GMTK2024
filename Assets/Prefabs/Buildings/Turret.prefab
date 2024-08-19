@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 78141578355827152}
   - component: {fileID: 5522302295929825422}
-  - component: {fileID: 3380517654505586185}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -111,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 6187008207383102841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.008, y: 0.22, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,38 +157,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 60db852f0f8ba5c45ba3a6fb4b745a77, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5568b1a616a66134aa7f236a5adc8a85, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3380517654505586185
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6187008207383102841}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6bf47ed1e56e62f429de30110728d417, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6276328080111710553
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,8 +194,8 @@ Transform:
   m_GameObject: {fileID: 6276328080111710553}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.006, z: 1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6278722588997785233}
@@ -263,12 +241,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: eb8d78eae6fc21840b523d0cf8ba4619, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae13bb4bb526b7d4dbdf17ed2d96d13a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -342,6 +320,12 @@ MonoBehaviour:
   range: 5
   fireRate: 500
   offsetRotation: -90
+  PlayerGun: {fileID: 21300000, guid: 5568b1a616a66134aa7f236a5adc8a85, type: 3}
+  PlayerBase: {fileID: 21300000, guid: ae13bb4bb526b7d4dbdf17ed2d96d13a, type: 3}
+  EnemyGun: {fileID: 21300000, guid: dc1705fab31374d4ca124fbbd38551f3, type: 3}
+  EnemyBase: {fileID: 21300000, guid: 9ac69ab5ac3b95c4eaace791e3639e7a, type: 3}
+  _gunSr: {fileID: 5522302295929825422}
+  _baseSr: {fileID: 2380979845627857164}
 --- !u!58 &8896642457782034307
 CircleCollider2D:
   m_ObjectHideFlags: 0
