@@ -37,4 +37,14 @@ public class UnitPlanet : Unit
     {
         // TODO? do an outline?
     }
+
+    public void Spwaner(float health, UnitTeam team, int radius, Board.PlanetType planetType)
+    {
+        // this.Hp.CurrentHealth = health;
+        this.Hp.SetMaxHealth(health);
+        this.Team = team;
+        this.Radius = radius;
+        this.ReferencedBoard.SetPlanetType(planetType);
+        this.ReferencedBoard.SetBaseMaxHealth(health);
+    }
 }

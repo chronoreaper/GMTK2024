@@ -81,4 +81,8 @@ public class Board : MonoBehaviour
     public BoardTile GetTileByPosition(Vector2 position) => _board.GetValueOrDefault(position);
 
     public AbstractBaseBuilding GetBuildingByPosition(Vector2 position) => BuildingBoard.GetValueOrDefault(position);
+
+    public void SetPlanetType(PlanetType planetType) => _planetType = planetType;
+
+    public void SetBaseMaxHealth(float hp) => GetComponent<HealthBase>().SetMaxHealth(hp);
 }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -6,6 +7,8 @@ public class Health : MonoBehaviour
 
     protected float _currentHealth;
     protected Unit _lastDamagedBy;
+
+    private float setMaxHealth;
 
     public float CurrentHealth
     {
@@ -16,8 +19,8 @@ public class Health : MonoBehaviour
             {
                 _currentHealth = maxHealth;
                 return;
-            } 
-            
+            }
+
             if (value < 0)
             {
                 _currentHealth = 0;
@@ -34,11 +37,17 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void Awake() => CurrentHealth = maxHealth;
-    
+    private void Awake()
+    {
+        if (setMaxHealth < maxHealth)
+        {
+            CurrentHealth = maxHealth;
+        }
+    }
+
     private void Damage(float damage) => CurrentHealth -= damage;
-    public void Damage(float damage, Unit source) 
-    { 
+    public void Damage(float damage, Unit source)
+    {
         Damage(damage);
         _lastDamagedBy = source;
     }
@@ -49,5 +58,12 @@ public class Health : MonoBehaviour
     {
         //TODO: Spawn some particles, play sound
         Destroy(gameObject);
+    }
+
+    public void SetMaxHealth(float hp)
+    {
+        setMaxHealth = hp;
+
+        CurrentHealth = hp;
     }
 }
