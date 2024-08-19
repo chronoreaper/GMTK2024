@@ -22,14 +22,14 @@ public class CameraZoomSystem : WorldView
 
     private void OnEnable()
     {
-        PlayerMouse_Clone.planetSelected += ZoomInToPlanet;
-        PlayerMouse_Clone.planetDeselected += ZoomOutToGalaxy;
+        PlayerMouse.planetSelected += ZoomInToPlanet;
+        PlayerMouse.planetDeselected += ZoomOutToGalaxy;
     }
 
     private void OnDisable()
     {
-        PlayerMouse_Clone.planetSelected -= ZoomInToPlanet;
-        PlayerMouse_Clone.planetDeselected -= ZoomOutToGalaxy;
+        PlayerMouse.planetSelected -= ZoomInToPlanet;
+        PlayerMouse.planetDeselected -= ZoomOutToGalaxy;
     }
 
     private void ZoomInToPlanet(Vector2 planetLocation)

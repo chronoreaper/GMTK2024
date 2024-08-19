@@ -79,11 +79,13 @@ public class UnitPlanet : Unit
      
     public void Spwaner(float health, UnitTeam team, int radius, Board.PlanetType planetType)
     {
-        // this.Hp.CurrentHealth = health;
-        this.Hp.SetMaxHealth(health);
+        Hp.SetMaxHealth(health);
+        Hp.CurrentHealth = health;
         _base.Team = team;
-        this.Radius = radius;
-        this.Type = planetType;
-        this.ReferencedBoard.SetBaseMaxHealth(health);
+        Radius = radius;
+        Type = planetType;
+        ReferencedBoard.Radius = Radius - 1;
+        ReferencedBoard.Type = Type;
+        ReferencedBoard.SetBaseMaxHealth(health);
     }
 }

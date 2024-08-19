@@ -38,6 +38,8 @@ public class Ship : MonoBehaviour
 
     private void OnValidate()
     {
+        _sr = transform.GetComponentInChildren<SpriteRenderer>();
+        _unit = transform.GetComponent<Unit>();
         if (_unit.Team == Unit.UnitTeam.Player)
         {
             _sr.sprite = PlayerSprite;
@@ -57,6 +59,7 @@ public class Ship : MonoBehaviour
     void Start()
     {
         _targetPos = transform.position;
+        _unit = transform.GetComponent<Unit>();
     }
 
 
