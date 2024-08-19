@@ -39,7 +39,7 @@ public class Turret : AbstractBaseBuilding
     {
         var tilePosition = ReferencedBoard.GetTileByPosition(position);
 
-        return tilePosition != null && ReferencedBoard.GetBuildingByPosition(position) == null && (tilePosition.Resource == ResourceTypes.None || tilePosition.Resource == ResourceTypes.Water);
+        return base.CanBuild(position) && (tilePosition.Resource == ResourceTypes.None || tilePosition.Resource == ResourceTypes.Water);
     }
 
     private void Update()

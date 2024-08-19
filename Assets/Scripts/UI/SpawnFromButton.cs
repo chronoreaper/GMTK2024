@@ -1,8 +1,8 @@
 using UnityEngine;
+using static CostToBuild;
 
 public class SpawnFromButton : MonoBehaviour
-{
-    
+{    
     public Board ReferencedBoard 
     {   get => _board; 
         set
@@ -29,9 +29,19 @@ public class SpawnFromButton : MonoBehaviour
     public void Spawn(BuildingCreator prefab)
     {
         if (_spawnedObject != null)
-            return;
+            Destroy(_spawnedObject.gameObject);
         _spawnedObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         _spawnedObject.ReferencedBoard = ReferencedBoard;
+    }
+
+    public void SpawnShip()
+    {
+        if (!PlayerMouse.Inst.CanPayFor(BuildTypes.Ship))
+            return;
+        Ship ship = ShipSpawner.Instance.Get();
+
+        // This may cause error TODO check
+        ship.Init(_board.transform.position, Quaternion.identity, _board.GetComponent<Unit>().Team);
     }
 
     public void DisableUI(bool disable)

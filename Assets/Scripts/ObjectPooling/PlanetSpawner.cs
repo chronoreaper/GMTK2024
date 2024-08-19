@@ -24,8 +24,8 @@ public class PlanetSpawner : MonoBehaviour
 
     private readonly List<Unit.UnitTeam> unitTeams = new()
     {
-        Unit.UnitTeam.Enemy,
         Unit.UnitTeam.Player,
+        Unit.UnitTeam.Enemy,
         Unit.UnitTeam.Neutral
     };
 
@@ -36,11 +36,16 @@ public class PlanetSpawner : MonoBehaviour
         Board.PlanetType.Stone,
     };
 
+    public delegate void SetMapBoundaries(Vector2 boundaries);
+    public static SetMapBoundaries setMapBoundaries;
+
     private void Start()
     {
         spawnArea.transform.position = Vector2.zero;
-        _spawnAreaSize = new Vector2(spawnArea.bounds.size.x / 2, spawnArea.bounds.size.y / 2);
+        _spawnAreaSize = new Vector2Int((int)spawnArea.bounds.size.x / 2, (int)spawnArea.bounds.size.y / 2);
         spawnArea.gameObject.SetActive(false);
+
+        setMapBoundaries?.Invoke(_spawnAreaSize);
 
         SpawnPlanets();
     }
@@ -62,17 +67,17 @@ public class PlanetSpawner : MonoBehaviour
         }
     }
 
-    private Vector2? GetRandomPosition()
+    private Vector2Int? GetRandomPosition()
     {
         const int maxAttempts = 5; // Limit the number of attempts to find an unoccupied position
         int attempts = 0;
-        Vector2 randomPosition;
+        Vector2Int randomPosition;
 
         while (attempts < maxAttempts)
         {
-            float randomPositionX = Random.Range(-_spawnAreaSize.x, _spawnAreaSize.x);
-            float randomPositionY = Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
-            randomPosition = new Vector2(randomPositionX, randomPositionY);
+            int randomPositionX = (int)Random.Range(-_spawnAreaSize.x, _spawnAreaSize.x);
+            int randomPositionY = (int)Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
+            randomPosition = new Vector2Int(randomPositionX, randomPositionY);
 
             if (!IsPositionOccupied(randomPosition, maxRadius))
             {
@@ -107,8 +112,8 @@ public class PlanetSpawner : MonoBehaviour
     private Unit.UnitTeam GetRandomTeam()
     {
         int randomTeamIndex = Random.Range(0, unitTeams.Count);
-        
-        return unitTeams[randomTeamIndex];
+
+        return Unit.UnitTeam.Enemy;// unitTeams[randomTeamIndex];
     }
 
     private Board.PlanetType GetRandomPlanetType()
