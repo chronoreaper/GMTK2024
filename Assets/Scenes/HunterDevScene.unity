@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: numberOfPlanetsToSpawn
-      value: 2
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4097115680295987241, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -831,19 +831,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.x
-      value: 99.33
+      value: 503.10648
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.y
-      value: 78.94
+      value: 260.88092
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -201.8886
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -90.9723
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
