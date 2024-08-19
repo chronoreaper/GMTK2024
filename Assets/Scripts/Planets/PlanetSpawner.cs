@@ -48,40 +48,44 @@ public class PlanetSpawner : MonoBehaviour
     {
         for (int i = 0; i < numberOfPlanetsToSpawn; i++)
         {
-            GameObject planetInstance = Instantiate(planet, GetRandomPosition(), transform.rotation);
+            Vector2? planetRandomPosition = GetRandomPosition();
+            if (planetRandomPosition == null)
+            {
+                continue;
+            }
+            GameObject planetInstance = Instantiate(planet, (Vector3)planetRandomPosition, transform.rotation);
             UnitPlanet unitPlanet = planetInstance.GetComponent<UnitPlanet>();
 
             unitPlanet.Spwaner(GetMaxHealth(), GetRandomTeam(), GetRandomRadius(), GetRandomPlanetType());
         }
     }
 
-    private Vector2 GetRandomPosition()
+    private Vector2? GetRandomPosition()
     {
-        float randomPositionX = Random.Range(-_spawnAreaSize.x, _spawnAreaSize.x);
-        float randomPositionY = Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
-        Vector2 randomPosition = new(randomPositionX, randomPositionY);
+        const int maxAttempts = 5; // Limit the number of attempts to find an unoccupied position
+        int attempts = 0;
+        Vector2 randomPosition;
 
-        if (IsPositionOccupied(randomPosition, maxRadius * 2))
+        while (attempts < maxAttempts)
         {
-            Debug.Log("looop");
-            return GetRandomPosition();
-        }
-        else
-        {
-            Debug.Log("Random Position " + randomPosition);
+            float randomPositionX = Random.Range(-_spawnAreaSize.x, _spawnAreaSize.x);
+            float randomPositionY = Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
+            randomPosition = new Vector2(randomPositionX, randomPositionY);
 
-            return randomPosition;
+            if (!IsPositionOccupied(randomPosition, maxRadius))
+            {
+                return randomPosition;
+            }
+
+            attempts++;
         }
+
+        Debug.LogWarning("Max Attempts Reached. You can't Spwan a Planet");
+        return null;
     }
 
     private bool IsPositionOccupied(Vector2 pos, float radius)
     {
-        //Change this at your own risk
-        if (_spawnAreaSize.x < 150 && _spawnAreaSize.y < 100 || numberOfPlanetsToSpawn > 20)
-        {
-            throw new OutOfMemoryException("Make The Spawn Area Bigger Or There Will Be a Memory Leak!");
-        }
-        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, radius);
         return colliders.Length > 0;
     }
