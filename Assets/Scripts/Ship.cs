@@ -32,7 +32,13 @@ public class Ship : MonoBehaviour
         transform.position = position;
         transform.rotation = rotation;
         _unit.Team = team;
-        if (team == Unit.UnitTeam.Player)
+        OnValidate();
+    }
+
+
+    private void OnValidate()
+    {
+        if (_unit.Team == Unit.UnitTeam.Player)
         {
             _sr.sprite = PlayerSprite;
         }
@@ -41,7 +47,6 @@ public class Ship : MonoBehaviour
             _sr.sprite = EnemySprite;
         }
     }
-
 
     private void Awake()
     {
@@ -82,7 +87,7 @@ public class Ship : MonoBehaviour
         }
         else
         {
-            shouldMove = Mathf.Abs(((Vector2)transform.position - _targetPos).sqrMagnitude) > 0.1;
+            shouldMove = Mathf.Abs(((Vector2)transform.position - _targetPos).sqrMagnitude) > 1;
         }
 
 

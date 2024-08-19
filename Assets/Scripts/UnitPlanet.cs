@@ -19,15 +19,9 @@ public class UnitPlanet : Unit
         base.Awake();
         _base = GetComponentInChildren<UnitBase>();
         ReferencedBoard = GetComponentInChildren<Board>();
-        OnValidate();
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
         ReferencedBoard.Radius = Radius - 1;
         ReferencedBoard.Type = Type;
+        OnValidate();
     }
 
     protected override void OnValidate()
