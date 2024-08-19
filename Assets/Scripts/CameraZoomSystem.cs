@@ -41,6 +41,7 @@ public class CameraZoomSystem : WorldView
     {
         PlayerMouse.planetSelected += ZoomInToPlanet;
         PlayerMouse.planetDeselected += ZoomOutToGalaxy;
+<<<<<<< HEAD
 
         
         _scrollWheel = _playerControls.Player.ScrollWheel;
@@ -49,12 +50,15 @@ public class CameraZoomSystem : WorldView
 
         _cursorPosition = _playerControls.Player.CusorPosition;
         _cursorPosition.Enable();
+=======
+>>>>>>> 1d9753ece27c618ba4f8bd7ade8f8b06e141629f
     }
 
     private void OnDisable()
     {
         PlayerMouse.planetSelected -= ZoomInToPlanet;
         PlayerMouse.planetDeselected -= ZoomOutToGalaxy;
+<<<<<<< HEAD
 
         _scrollWheel.Disable();
         _cursorPosition.Disable();
@@ -63,6 +67,8 @@ public class CameraZoomSystem : WorldView
     private void Update()
     {
         HandelCameraZoom();
+=======
+>>>>>>> 1d9753ece27c618ba4f8bd7ade8f8b06e141629f
     }
 
     private void ZoomInToPlanet(Vector2 planetLocation)
