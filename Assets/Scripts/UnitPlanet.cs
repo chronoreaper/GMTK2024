@@ -67,6 +67,15 @@ public class UnitPlanet : Unit
             return;
 
         _sr.sprite = sprite.Sprite;
-
+     }
+     
+    public void Spwaner(float health, UnitTeam team, int radius, Board.PlanetType planetType)
+    {
+        // this.Hp.CurrentHealth = health;
+        this.Hp.SetMaxHealth(health);
+        this.Team = team;
+        this.Radius = radius;
+        this.ReferencedBoard.SetPlanetType(planetType);
+        this.ReferencedBoard.SetBaseMaxHealth(health);
     }
 }
