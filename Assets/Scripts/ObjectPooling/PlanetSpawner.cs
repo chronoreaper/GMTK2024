@@ -35,11 +35,16 @@ public class PlanetSpawner : MonoBehaviour
         Board.PlanetType.Stone,
     };
 
+    public delegate void SetMapBoundaries(Vector2 boundaries);
+    public static SetMapBoundaries setMapBoundaries;
+
     private void Start()
     {
         spawnArea.transform.position = Vector2.zero;
         _spawnAreaSize = new Vector2(spawnArea.bounds.size.x / 2, spawnArea.bounds.size.y / 2);
         spawnArea.gameObject.SetActive(false);
+
+        setMapBoundaries?.Invoke(_spawnAreaSize);
 
         SpawnPlanets();
     }

@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,8 @@ public class CameraDragSystem : MonoBehaviour
     private bool isDragPanMoveActive;
     private Vector2 lastMousePosition;
 
+    private Vector2 worldSize;
+
     private void Awake()
     {
         _playerControls = new PlayerControls();
@@ -34,16 +37,36 @@ public class CameraDragSystem : MonoBehaviour
 
         _cursorPosition = _playerControls.Player.CusorPosition;
         _cursorPosition.Enable();
+
+        PlanetSpawner.setMapBoundaries += SetWorldSize;
     }
 
     private void OnDisable()
     {
         _click.Disable();
+
+        PlanetSpawner.setMapBoundaries -= SetWorldSize;
     }
 
     private void Update()
     {
+        ClampCameraToWorld();
         HandleCameraMovement();
+    }
+
+    private void SetWorldSize(Vector2 boundaries)
+    {
+        worldSize = boundaries;
+    }
+
+    private void ClampCameraToWorld()
+    {
+        Vector2 clampPostion = transform.position;
+
+        clampPostion.x = Mathf.Clamp(transform.position.x, -worldSize.x, worldSize.x);
+        clampPostion.y = Mathf.Clamp(transform.position.y, -worldSize.y, worldSize.y);
+
+        transform.position = clampPostion;
     }
 
     private void HandleCameraMovement()

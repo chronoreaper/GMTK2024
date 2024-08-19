@@ -29,7 +29,7 @@ public class SpawnFromButton : MonoBehaviour
     public void Spawn(BuildingCreator prefab)
     {
         if (_spawnedObject != null)
-            return;
+            Destroy(_spawnedObject.gameObject);
         _spawnedObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         _spawnedObject.ReferencedBoard = ReferencedBoard;
     }
