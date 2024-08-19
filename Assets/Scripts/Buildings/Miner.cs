@@ -33,6 +33,7 @@ public class Miner : AbstractBaseBuilding
     
     public override void Build()
     {
+        base.Build();
         _resource = ReferencedBoard.GetTileByPosition(transform.position).Resource;
 
         // Some resource changes
@@ -40,6 +41,19 @@ public class Miner : AbstractBaseBuilding
             _resource = ResourceTypes.Stone;
 
         StartCoroutine(nameof(Process));
+    }
+
+    public override void OnBaseCaptured(Unit.UnitTeam team)
+    {
+        if (team == Unit.UnitTeam.Enemy)
+        {
+            StopAllCoroutines();
+        }
+
+        if (team == Unit.UnitTeam.Player)
+        {
+            StartCoroutine(nameof(Process));
+        }
     }
 
     private void Awake() => OnResourceGenerated?.Invoke(AmountGenerated);

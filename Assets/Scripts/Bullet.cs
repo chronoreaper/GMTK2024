@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public Unit Source { get; set; }
-    public Unit Target { get; set; }
+    [SerializeField] private float lifeTime;
+    
+    public Unit Source { get; private set; }
+    public Unit Target { get; private set; }
 
     public int Speed = 6;
 
@@ -15,12 +15,18 @@ public class Bullet : MonoBehaviour
     {
         _sr = transform.GetComponentInChildren<SpriteRenderer>();
     }
-    void Start()
+
+    public void Init(Unit source, Unit target, Vector2 startPosition, Quaternion rotation)
     {
+        Source = source;
+        Target = target;
+        transform.position = startPosition;
+        transform.rotation = rotation;
         _sr.color = Source.GetTeamColour();
-        // Don't last more than a few seconds
-        Destroy(gameObject, 2);
+        Invoke(nameof(Release), lifeTime);
     }
+    
+    private void Release() => BulletSpawner.Instance.Release(this);
 
     void Update()
     {

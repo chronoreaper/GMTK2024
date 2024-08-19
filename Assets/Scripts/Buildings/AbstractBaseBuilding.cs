@@ -5,7 +5,12 @@ public abstract class AbstractBaseBuilding : MonoBehaviour
 {
     public Board ReferencedBoard { get; set; } = null;
 
-    public abstract void Build();
+    public virtual void Build()
+    {
+        ReferencedBoard.GetComponent<UnitBase>().OnBaseCaptured.AddListener(OnBaseCaptured);
+    }
+
+    public abstract void OnBaseCaptured(Unit.UnitTeam team);
     
     public virtual bool CanBuild(Vector2 position)
     {

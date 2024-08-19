@@ -62,8 +62,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void OnValidate()
     {
-        Team = _initialTeam;
-        UpdateColor();
+        
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -73,7 +72,7 @@ public class Unit : MonoBehaviour
         if (bullet != null && bullet.Source.Team != Team)
         {
             Hp.Damage(1, bullet.Source);
-            Destroy(bullet.gameObject);
+            BulletSpawner.Instance.Release(bullet);
         }
     }
 
