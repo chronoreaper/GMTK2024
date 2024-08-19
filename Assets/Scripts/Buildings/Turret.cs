@@ -14,7 +14,16 @@ public class Turret : AbstractBaseBuilding
     private Unit _unit;
     private float _timeSinceLastShot;
     
-    public override void Build() => _unit = GetComponent<Unit>();
+    public override void Build()
+    {
+        _unit = GetComponent<Unit>();
+        base.Build();
+    }
+
+    public override void OnBaseCaptured(Unit.UnitTeam team)
+    {
+        _unit.Team = _unit.Team == Unit.UnitTeam.Player ? Unit.UnitTeam.Enemy : Unit.UnitTeam.Player;
+    }
 
     public override bool CanBuild(Vector2 position)
     {
@@ -80,6 +89,16 @@ public class Turret : AbstractBaseBuilding
         
         var enemy = colliders.ToList().Find(enemyCollider =>
             enemyCollider.GetComponent<Unit>() != null && enemyCollider.GetComponent<Unit>().Team != _unit.Team);
+
+        if (!enemy)
+        {
+            return null;
+        }
+        
+        if (enemy.GetComponent<UnitBase>())
+        {
+            return null;
+        }
         
         return enemy;
     }

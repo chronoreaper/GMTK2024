@@ -34,9 +34,7 @@ public class UnitPlanet : Unit
         CircleCollider2D collider = GetComponent<CircleCollider2D>();
         if (collider != null)
             collider.radius = Radius;
-
-        _base = GetComponentInChildren<UnitBase>();
-        _base.Team = Team;
+        
         UpdateSprite();
     }
 
