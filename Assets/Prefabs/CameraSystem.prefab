@@ -65,3 +65,5 @@ MonoBehaviour:
   zoomIncreaseAmount: 10
   zoomSpeed: 3
   cameraDragSystem: {fileID: 2269838219548079924}
+  wheelZoomSpeed: 1
+  maxZoomDistance: 0

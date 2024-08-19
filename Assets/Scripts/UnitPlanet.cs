@@ -21,17 +21,17 @@ public class UnitPlanet : Unit
         base.Awake();
         _base = GetComponentInChildren<UnitBase>();
         ReferencedBoard = GetComponentInChildren<Board>();
+        ReferencedBoard.Radius = Radius - 1;
+        ReferencedBoard.Type = Type;
         myCollider = GetComponent<CircleCollider2D>();
         OnValidate();
     }
 
     protected override void Start()
     {
-        base.Start();
-
-        ReferencedBoard.Radius = Radius - 1;
+        base.Start();  
         myCollider.radius = ReferencedBoard.Radius;
-        ReferencedBoard.Type = Type;
+        OnValidate();
     }
 
     protected override void OnValidate()
@@ -79,11 +79,13 @@ public class UnitPlanet : Unit
      
     public void Spwaner(float health, UnitTeam team, int radius, Board.PlanetType planetType)
     {
-        // this.Hp.CurrentHealth = health;
-        this.Hp.SetMaxHealth(health);
+        Hp.SetMaxHealth(health);
+        Hp.CurrentHealth = health;
         _base.Team = team;
-        this.Radius = radius;
-        this.Type = planetType;
-        this.ReferencedBoard.SetBaseMaxHealth(health);
+        Radius = radius;
+        Type = planetType;
+        ReferencedBoard.Radius = Radius - 1;
+        ReferencedBoard.Type = Type;
+        ReferencedBoard.SetBaseMaxHealth(health);
     }
 }
