@@ -5,12 +5,12 @@ public class CameraDragSystem : MonoBehaviour
 {
     [Header("Edge Scrolling")]
     [SerializeField] private bool useEdgeScrolling;
-    [Range(20, 50f)][SerializeField] float edgeScrollingSpeed;
+    [Range(150f, 300f)][SerializeField] float edgeScrollingSpeed = 80f;
 
     [Space]
     [Header("Drag Pan")]
     [SerializeField] private bool useDragPan;
-    [Range(1f, 5f)][SerializeField] float dragPanSpeed;
+    [Range(1f, 10f)][SerializeField] float dragPanSpeed = 5f;
 
     PlayerControls _playerControls;
     InputAction _click;
@@ -39,6 +39,8 @@ public class CameraDragSystem : MonoBehaviour
         _cursorPosition.Enable();
 
         PlanetSpawner.setMapBoundaries += SetWorldSize;
+
+        isEdgeScrollingActive = true;
     }
 
     private void OnDisable()
