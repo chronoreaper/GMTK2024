@@ -4,16 +4,21 @@ using UnityEngine.InputSystem;
 
 public class PlayerMouse_Clone : WorldView
 {
+    public static PlayerMouse_Clone Inst { get; private set; }
+
     public GameObject SelectionBoxSprite;
     public SpawnFromButton Spawner;
 
     private Views CurrentLayer;
+    
+    public UIDisplay UITop;
 
     private float _pressTime = 0;
     private PlayerControls _playerControls;
     private InputAction _click;
     private InputAction _cursorPosition;
 
+    private Dictionary<ResourceTypes, int> _resources = new();
     private List<Unit> _selected = new();
     private Vector2 _mouseStart = new();
     private Vector2 _mouseEnd = new();
@@ -24,9 +29,26 @@ public class PlayerMouse_Clone : WorldView
     public delegate void PlanetDeselected();
     public static PlanetDeselected planetDeselected;
 
+    // TODO maybe move it into its own class?
+    public void GainResources(ResourceTypes type, int amount)
+    {
+        if (!_resources.ContainsKey(type))
+            _resources.Add(type, 0);
+        _resources[type] += amount;
+        UITop.ChangeResourceValue(type, _resources[type]);
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
+        if (Inst != null && Inst != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Inst = this;
+        }
         _playerControls = new PlayerControls();
     }
 
@@ -56,8 +78,21 @@ public class PlayerMouse_Clone : WorldView
         {
             _mouseEnd = transform.position;
             _pressTime += Time.deltaTime;
+            SelectionBoxSprite.SetActive(true);
             SelectionBoxSprite.transform.position = (_mouseStart + _mouseEnd) / 2;
             SelectionBoxSprite.transform.localScale = Abs(_mouseStart, _mouseEnd);
+        }
+
+        // Check if selected objects are not destroyed
+        int i = 0;
+        while(i < _selected.Count)
+        {
+            if (_selected[i] == null)
+            {
+                _selected.RemoveAt(i);
+            }
+            else
+                i++;
         }
     }
 
@@ -66,8 +101,16 @@ public class PlayerMouse_Clone : WorldView
         _mouseStart = transform.position;
         _mouseEnd = transform.position;
         _pressTime = 0;
+    }
+
+    private void Release(InputAction.CallbackContext obj)
+    {
+        _mouseEnd = transform.position;
+        // Box must be larger than a certain value and Must hold longer than a certain time
         Unit hover = CurrentlyHoveringOver();
         if (hover != null && hover.Team == Unit.UnitTeam.Player)
+            SelectUnits();
+        else if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.1f)
             SelectUnits();
         else
         {
@@ -85,16 +128,10 @@ public class PlayerMouse_Clone : WorldView
                 }
             }
         }
-    }
 
-    private void Release(InputAction.CallbackContext obj)
-    {
-        _mouseEnd = transform.position;
-        // Box must be larger than a certain value and Must hold longer than a certain time
-        if ((_mouseEnd - _mouseStart).magnitude > 1 && _pressTime > 0.2f)
-            SelectUnits();
         _mouseEnd = _mouseStart;
         SelectionBoxSprite.transform.localScale = Vector2.zero;
+        SelectionBoxSprite.SetActive(false);
     }
 
     private Unit CurrentlyHoveringOver()

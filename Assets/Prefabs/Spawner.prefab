@@ -94,8 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4097115680295987241}
   - component: {fileID: 1329820098751839206}
+  - component: {fileID: 495141416852099817}
+  - component: {fileID: 6521389198005860276}
   m_Layer: 0
-  m_Name: PlanetSpawner
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,3 +138,29 @@ MonoBehaviour:
   minRadius: 5
   maxRadius: 10
   spawnArea: {fileID: 159613164867255045}
+--- !u!114 &495141416852099817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628593595374682609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39dc295baa642c74e970e8647648d46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipPrefab: {fileID: 8411743903644998889, guid: 963c79fa0d9f68949932769ddc2bfcd1, type: 3}
+--- !u!114 &6521389198005860276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7628593595374682609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1893569a1679647b2503289d43934f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
