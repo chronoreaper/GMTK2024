@@ -14,11 +14,14 @@ public class UnitPlanet : Unit
     private UnitBase _base;
     private SpriteRenderer _sr;
 
+    private CircleCollider2D myCollider;
+
     protected override void Awake()
     {
         base.Awake();
         _base = GetComponentInChildren<UnitBase>();
         ReferencedBoard = GetComponentInChildren<Board>();
+        myCollider = GetComponent<CircleCollider2D>();
         OnValidate();
     }
 
@@ -27,6 +30,7 @@ public class UnitPlanet : Unit
         base.Start();
 
         ReferencedBoard.Radius = Radius - 1;
+        myCollider.radius = ReferencedBoard.Radius;
         ReferencedBoard.Type = Type;
     }
 
