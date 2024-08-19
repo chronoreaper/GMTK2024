@@ -77,13 +77,17 @@ public class Ship : MonoBehaviour
             Attack();
         }
 
+        if (_target != null)
+        {
+            RotateToEnemy(_target);
+        }
+
         bool shouldMove = true;
         if (_unit.Team == Unit.UnitTeam.Enemy)
         {
             if (_target != null)
             {
                 _targetPos = _target.transform.position;
-                RotateToEnemy(_target);
             }
             if (inAtkRange)
                 shouldMove = false;
@@ -100,7 +104,9 @@ public class Ship : MonoBehaviour
             float movementMultiplier = 1;
             if (!_canAttack)
                 movementMultiplier = 0.5f;
-            _sr.transform.up = _targetPos - (Vector2)transform.position;
+            var targetDirection = _targetPos - (Vector2)transform.position;
+            
+            transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg + offsetRotation);
             transform.position = Vector3.MoveTowards(transform.position, _targetPos, movementMultiplier * Speed * Time.deltaTime);
         }
     }
@@ -151,7 +157,7 @@ public class Ship : MonoBehaviour
 
         // May need to implement a resource manager that simply pools objects instead of instantiate them each time
         var bullet = BulletSpawner.Instance.Get();
-        bullet.Init(_unit, _target, shootPoint.localPosition, Quaternion.identity);
+        bullet.Init(_unit, _target, shootPoint.position, Quaternion.identity);
 
         _canAttack = false;
         Invoke(nameof(ResetAttack), AtkRate);
