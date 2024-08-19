@@ -47,6 +47,12 @@ public class Health : MonoBehaviour
     protected virtual void Kill()
     {
         //TODO: Spawn some particles, play sound
+        var ship = GetComponent<Ship>();
+        if (ship)
+        {
+            ShipSpawner.Instance.Release(ship);
+        }
+        
         Destroy(gameObject);
     }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -57,6 +58,7 @@ public class PlanetSpawner : MonoBehaviour
             UnitPlanet unitPlanet = planetInstance.GetComponent<UnitPlanet>();
 
             unitPlanet.Spwaner(GetMaxHealth(), GetRandomTeam(), GetRandomRadius(), GetRandomPlanetType());
+            WinManager.Instance.spawnedPlanets.Add(unitPlanet);
         }
     }
 
@@ -115,4 +117,5 @@ public class PlanetSpawner : MonoBehaviour
         return planetTypes[randomTypeIndex];
     }
 
+    
 }
