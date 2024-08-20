@@ -10,10 +10,12 @@ public class Bullet : MonoBehaviour
     public int Speed = 6;
 
     SpriteRenderer _sr;
+    TrailRenderer _tr;
 
     private void Awake()
     {
         _sr = transform.GetComponentInChildren<SpriteRenderer>();
+        _tr = transform.GetComponentInChildren<TrailRenderer>();
     }
 
     public void Init(Unit source, Unit target, Vector2 startPosition, Quaternion rotation)
@@ -23,10 +25,18 @@ public class Bullet : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = rotation;
         _sr.color = Source.GetTeamColour();
+        _tr.startColor = Source.GetTeamColour();
+        _tr.endColor = Source.GetTeamColour();
+        _tr.Clear();
+        GetComponent<AudioSource>().Play();
+        CancelInvoke();
         Invoke(nameof(Release), lifeTime);
     }
-    
-    private void Release() => BulletSpawner.Instance.Release(this);
+
+    private void Release()
+    {
+        BulletSpawner.Instance.Release(this); 
+    }
 
     void Update()
     {

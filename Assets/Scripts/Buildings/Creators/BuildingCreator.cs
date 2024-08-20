@@ -107,7 +107,8 @@ public class BuildingCreator : MonoBehaviour
         {
             return;
         }
-        
+        PlayerMouse.Inst.PayFor(buildingPrefab.Type);
+
         var building = Create(transform.position, transform.rotation);
 
         building.Build();
