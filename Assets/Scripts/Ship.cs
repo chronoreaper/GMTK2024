@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Unit))]
-public class Ship : MonoBehaviour
+public class Ship : MonoBehaviour, IGetCustomTip
 {
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float offsetRotation;
@@ -167,4 +167,6 @@ public class Ship : MonoBehaviour
     {
         _canAttack = true;
     }
+
+    public string GetCustomData() => _unit.Team.ToString();
 }
