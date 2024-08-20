@@ -18,8 +18,6 @@ public class SpawnFromButton : MonoBehaviour
             }
         }
     }
-    public AudioClip SpawnClip;
-
     private Board _board = null;
     private BuildingCreator _spawnedObject = null;
 
@@ -45,7 +43,6 @@ public class SpawnFromButton : MonoBehaviour
 
         // This may cause error TODO check
         ship.Init(_board.transform.position, Quaternion.identity, _board.GetComponent<Unit>().Team);
-        AudioManager.Inst.Play(SpawnClip);
     }
 
     public void DisableUI(bool disable)

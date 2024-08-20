@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  deathParticles: {fileID: 0}
 --- !u!114 &4829497785171271816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1147519868531922797, guid: b8ae827f3e6c20941b2051d443a32b8d, type: 3}
       propertyPath: maxSpawnAmount
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2487422195540609015, guid: b8ae827f3e6c20941b2051d443a32b8d, type: 3}
       propertyPath: m_LocalPosition.z

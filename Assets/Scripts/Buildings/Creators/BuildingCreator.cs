@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class BuildingCreator : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class BuildingCreator : MonoBehaviour
     [SerializeField] private Color canBuildColor;
     [SerializeField] private Color cantBuildColor;
 
+    [Header("Audio")] 
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioClip[] placementSounds;
+    
     private PlayerControls _playerControls;
     private InputAction _cursorPosition;
     private InputAction _rightClick;
@@ -108,7 +113,9 @@ public class BuildingCreator : MonoBehaviour
             return;
         }
         PlayerMouse.Inst.PayFor(buildingPrefab.Type);
-        AudioManager.Inst.Play(BuildClip);
+        source.clip = placementSounds[Random.Range(0, placementSounds.Length)];
+        source.Play();
+
         var building = Create(transform.position, transform.rotation);
 
         building.Build();

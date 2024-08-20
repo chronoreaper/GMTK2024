@@ -61,7 +61,7 @@ public class PlayerMouse : WorldView
 
     public void PayFor(BuildTypes unit)
     {
-        AudioManager.Inst.Play(BuildClip);
+        //AudioManager.Inst.Play(BuildClip);
         foreach (var cost in BuildCosts)
         {
             if (cost.Building != unit)

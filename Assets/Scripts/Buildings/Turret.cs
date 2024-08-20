@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,12 +18,19 @@ public class Turret : AbstractBaseBuilding
     [SerializeField] SpriteRenderer _gunSr;
     [SerializeField] SpriteRenderer _baseSr;
 
+    [Header("Visual Stuff")]
+    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private AudioClip[] fireSounds;
+    
     private Unit _unit;
     private float _timeSinceLastShot;
+    private AudioSource _source;
     
     public override void Build()
     {
         _unit = GetComponent<Unit>();
+        _source = GetComponent<AudioSource>();
         UpdateSprite();
         base.Build();
     }
@@ -54,6 +60,7 @@ public class Turret : AbstractBaseBuilding
     {
         if (!CanShoot())
         {
+            lineRenderer.enabled = false;
             return;
         }
         
@@ -68,6 +75,12 @@ public class Turret : AbstractBaseBuilding
         
         if (Physics2D.Raycast(transform.position, transform.up, range))
         {
+            lineRenderer.enabled = true;
+            _source.clip = fireSounds[Random.Range(0, fireSounds.Length)];
+            _source.Play();
+            
+            lineRenderer.SetPosition(0, shootPoint.position);
+            lineRenderer.SetPosition(1, enemy.transform.position);
             enemy.GetComponent<Health>().Damage(damage, _unit);
         }
 

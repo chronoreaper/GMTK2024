@@ -32,6 +32,15 @@ public class UnitPlanet : Unit
         base.Start();  
         myCollider.radius = ReferencedBoard.Radius;
         OnValidate();
+        StartCoroutine(nameof(Process));
+    }
+
+    private IEnumerator Process()
+    {
+        PlayerMouse.Inst.GainResources(ResourceTypes.Water, 1);
+        yield return new WaitForSeconds(5);
+
+        StartCoroutine(nameof(Process));
     }
 
     protected override void OnValidate()
