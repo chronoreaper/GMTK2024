@@ -52,19 +52,23 @@ public class ButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         _transform = GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
         ResourceCost[] cost = null;
-        foreach(var i in PlayerMouse.Inst.BuildCosts)
+        foreach (var i in PlayerMouse.Inst.BuildCosts)
         {
             if (i.Building == type)
             {
-                cost = i.Cost; 
+                cost = i.Cost;
                 break;
             }
         }
 
         if (cost != null)
         {
-            foreach(var resource in cost)
+            foreach (var resource in cost)
             {
                 SetCost(resource.Type, resource.Amount);
             }

@@ -13,7 +13,7 @@ public class BuildingCreator : MonoBehaviour
             buildingPrefab.ReferencedBoard = value;
         }
     }
-
+    public AudioClip BuildClip;
     private Board _board;
     [SerializeField] private AbstractBaseBuilding buildingPrefab;
     [SerializeField] private float tileSize;
@@ -108,7 +108,7 @@ public class BuildingCreator : MonoBehaviour
             return;
         }
         PlayerMouse.Inst.PayFor(buildingPrefab.Type);
-
+        AudioManager.Inst.Play(BuildClip);
         var building = Create(transform.position, transform.rotation);
 
         building.Build();

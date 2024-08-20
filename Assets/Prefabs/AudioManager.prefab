@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7511036384135924032}
   - component: {fileID: 3789102215909754746}
+  - component: {fileID: 109932457154866944}
   - component: {fileID: 3258886749374300017}
   - component: {fileID: 4855447165185198732}
   m_Layer: 0
@@ -47,6 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFX: {fileID: 4855447165185198732}
+  Music: {fileID: 3258886749374300017}
+--- !u!81 &109932457154866944
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3596913202349031005}
+  m_Enabled: 1
 --- !u!82 &3258886749374300017
 AudioSource:
   m_ObjectHideFlags: 0
@@ -57,7 +67,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e46e4c7ca4d3e1d42ac2581a2ac42708, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6d22bdc633592354eb8157bd644ab39b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

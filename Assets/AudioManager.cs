@@ -6,6 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Inst { get; private set; }
     public AudioSource SFX;
+    public AudioSource Music;
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,11 +18,17 @@ public class AudioManager : MonoBehaviour
         {
             Inst = this;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void Play(AudioClip clip)
     {
         SFX.PlayOneShot(clip);
+    }
+
+    public void PlayMusic(AudioClip clip)
+    {
+        Music.clip = clip;
+        Music.Play();
     }
 }

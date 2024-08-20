@@ -214,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a0d62950975d64d918732fc1019c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BuildCosts: []
   SelectionBoxSprite: {fileID: 1158681318379112178}
   Spawner: {fileID: 0}
-  CurrentLayer: 0
+  BuildClip: {fileID: 8300000, guid: 018b86a72d277294a8cb26d359d532d9, type: 3}
+  UITop: {fileID: 0}

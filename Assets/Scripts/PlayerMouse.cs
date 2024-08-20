@@ -13,6 +13,7 @@ public class PlayerMouse : WorldView
 
     public GameObject SelectionBoxSprite;
     public SpawnFromButton Spawner;
+    public AudioClip BuildClip;
 
     private Views CurrentLayer;
     
@@ -60,6 +61,7 @@ public class PlayerMouse : WorldView
 
     public void PayFor(BuildTypes unit)
     {
+        AudioManager.Inst.Play(BuildClip);
         foreach (var cost in BuildCosts)
         {
             if (cost.Building != unit)
@@ -67,7 +69,13 @@ public class PlayerMouse : WorldView
             foreach (ResourceCost rc in cost.Cost)
             {
                 if (Inst.Resources.ContainsKey(rc.Type))
+                {
                     Inst.Resources[rc.Type] -= rc.Amount;
+
+                    // Make things more expensive
+                    rc.Amount = Mathf.Min(100, rc.Amount + 1);
+
+                }
             }
             break;
         }
