@@ -531,9 +531,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialTeam: 0
   resetTime: 15
-  enemySpawnTime: 10
+  enemySpawnTime: 5
   spawnRange: 1
-  maxSpawnAmount: 3
+  maxSpawnAmount: 10
   playerBaseSprite: {fileID: 8524662567221204540}
   enemyBaseSprite: {fileID: 2287821268959906681}
 --- !u!114 &1806596520640390968

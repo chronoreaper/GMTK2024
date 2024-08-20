@@ -73,10 +73,11 @@ public class PlayerMouse : WorldView
                     Inst.Resources[rc.Type] -= rc.Amount;
 
                     // Make things more expensive
-                    rc.Amount = Mathf.Min(100, rc.Amount + 1);
-
+                    rc.Amount = Mathf.Min(10, rc.Amount + 1);
+                    UITop.ChangeResourceValue(rc.Type, Resources[rc.Type]);
                 }
             }
+
             break;
         }
     }
@@ -93,7 +94,10 @@ public class PlayerMouse : WorldView
             Inst = this;
         }
         _playerControls = new PlayerControls();
-        GainResources(ResourceTypes.Water, 20);
+        GainResources(ResourceTypes.Water, 10);
+        GainResources(ResourceTypes.Wood, 10);
+        GainResources(ResourceTypes.Lava, 10);
+        GainResources(ResourceTypes.Stone, 10);
     }
 
     private void OnEnable()

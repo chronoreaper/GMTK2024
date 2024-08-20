@@ -20,6 +20,7 @@ public class SpawnFromButton : MonoBehaviour
     }
     private Board _board = null;
     private BuildingCreator _spawnedObject = null;
+    public AudioClip SpawnClip;
 
     private void Start()
     {
@@ -42,6 +43,7 @@ public class SpawnFromButton : MonoBehaviour
         Ship ship = ShipSpawner.Instance.Get();
 
         // This may cause error TODO check
+        AudioManager.Inst.Play(SpawnClip);
         ship.Init(_board.transform.position, Quaternion.identity, _board.GetComponent<Unit>().Team);
     }
 

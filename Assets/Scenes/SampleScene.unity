@@ -994,8 +994,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 109932457154866944, guid: 58ee55898d1fe8943b3b14f785ad4921, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1579,6 +1578,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1286450454023984490, guid: 7d21d4a848294864692fdc7c2938c887, type: 3}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821313570237860327, guid: 7d21d4a848294864692fdc7c2938c887, type: 3}
+      propertyPath: SpawnClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9b5ac9e46cd11fb4b86205836d5bf2df, type: 3}
     - target: {fileID: 3932327763408774953, guid: 7d21d4a848294864692fdc7c2938c887, type: 3}
       propertyPath: fade
       value: 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,8 +17,12 @@ public class UnitBase : Unit, IGetCustomTip
     
     [SerializeField] private SpriteRenderer playerBaseSprite;
     [SerializeField] private SpriteRenderer enemyBaseSprite;
+    private List<Ship> _spawned = new();
 
-    private float _numberOfShipsSpawned;
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     protected override void UpdateColor()
     {
@@ -42,25 +47,36 @@ public class UnitBase : Unit, IGetCustomTip
     private IEnumerator ResetEnemySpawn()
     {
         yield return new WaitForSeconds(Random.value * resetTime);
-        _numberOfShipsSpawned = 0;
+        _spawned.Clear();
         StopCoroutine(nameof(SpawnUnit));
         StartCoroutine(nameof(SpawnUnit));
     }
 
     private IEnumerator SpawnUnit()
     {
-        yield return new WaitUntil(() => _numberOfShipsSpawned < maxSpawnAmount);
+        int i = 0;
+        while (i < _spawned.Count)
+        {
+            if (_spawned[i] == null)
+            {
+                _spawned.RemoveAt(i);
+            }
+            else
+                i++;
+        }
+
+        yield return new WaitUntil(() => _spawned.Count < maxSpawnAmount);
         yield return new WaitForSeconds(Random.Range(enemySpawnTime, enemySpawnTime * 1.5f));
         if (Team != UnitTeam.Player)
         {
             var ship = ShipSpawner.Instance.Get();
-            _numberOfShipsSpawned++;
 
             var angle = Random.Range(0f, 360f);
-            var position = new Vector2(transform.position.x + Mathf.Sin(angle) * Mathf.Deg2Rad, transform.position.y + Mathf.Cos(angle) * Mathf.Deg2Rad) * spawnRange;
+            var position = new Vector2(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y + Random.Range(-spawnRange, spawnRange));
             var rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 361));
 
             ship.Init(position, rotation, Team);
+            _spawned.Add(ship);
         }
         StartCoroutine(nameof(SpawnUnit));
     }
