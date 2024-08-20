@@ -354,7 +354,7 @@ MonoBehaviour:
   Type: 1
   damage: 1
   range: 15
-  fireRate: 100
+  fireRate: 1
   offsetRotation: -90
   PlayerGun: {fileID: 21300000, guid: 5568b1a616a66134aa7f236a5adc8a85, type: 3}
   PlayerBase: {fileID: 21300000, guid: ae13bb4bb526b7d4dbdf17ed2d96d13a, type: 3}

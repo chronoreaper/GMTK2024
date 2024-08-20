@@ -142,6 +142,6 @@ public class Turret : AbstractBaseBuilding
 
     private bool CanShoot()
     {
-        return _timeSinceLastShot > 0.1f;
+        return _timeSinceLastShot > 1f / (fireRate / 60f);
     }
 }
