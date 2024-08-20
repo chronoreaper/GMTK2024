@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useEdgeScrolling: 0
-  edgeScrollingSpeed: 20
+  edgeScrollingSpeed: 155
   useDragPan: 1
-  dragPanSpeed: 2
+  dragPanSpeed: 5
 --- !u!114 &3523541704217655167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,5 +65,3 @@ MonoBehaviour:
   zoomIncreaseAmount: 10
   zoomSpeed: 3
   cameraDragSystem: {fileID: 2269838219548079924}
-  wheelZoomSpeed: 1
-  maxZoomDistance: 0
