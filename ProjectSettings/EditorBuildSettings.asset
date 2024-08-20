@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 9634e7fa3714f2644a8dedf7f8bc14c8
   - enabled: 1
-    path: Assets/Scenes/IFuckingHateMergeConflicts.unity
-    guid: a5c44d46ff9758c4eb7e59ddd3f3971c
+    path: Assets/Scenes/SampleScene.unity
+    guid: 7477865a86bdbf046be59c86d0522977
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: b0feae893e58dae409d51a9e87f89fd9
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: e59b3e2f9915ede439db1168578d766f, type: 2}
