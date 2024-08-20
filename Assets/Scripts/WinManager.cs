@@ -31,10 +31,10 @@ public class WinManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI conquerPercentageText;
     [SerializeField] private Image _sprite;
     
-    private int _numberOfPlanetsConquer;
+    private int _numberOfPlanetsConquer = 1;
     public readonly List<UnitPlanet> spawnedPlanets = new();
     
-    private void Awake()
+    private void Start()
     {
         Instance = this;
         UpdateConquerPercentage();
@@ -74,7 +74,7 @@ public class WinManager : MonoBehaviour
     
     private void UpdateConquerPercentage()
     {
-        var percentage = 0;
+        var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
         conquerPercentageText.text = $"{percentage * 100}%";
         _sprite.fillAmount = percentage;
     }
