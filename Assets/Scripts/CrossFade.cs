@@ -1,29 +1,50 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CrossFade : MonoBehaviour
 {
-    [SerializeField] private float transitionTime = 1f;
-
     private Animator myAnimator;
 
+    [Space]
+    [Header("On Animation Finished Events")]
+    [SerializeField] private UnityEvent OnFadeInFinished;
+    [SerializeField] private UnityEvent OnFadeOutFinished;
 
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
     }
 
-    private void RunFadeAnimation()
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         StartFadeIn();
+    //     }
+
+    //     if (Input.GetKeyDown(KeyCode.Q))
+    //     {
+    //         StartFadeOut();
+    //     }
+    // }
+
+    public void StartFadeIn()
     {
-        StartCoroutine(FadeInTransition());
+        myAnimator.SetTrigger("FadeIn");
     }
 
-    private IEnumerator FadeInTransition()
+    public void StartFadeOut()
     {
-        myAnimator.SetTrigger("Start");
+        myAnimator.SetTrigger("FadeOut");
+    }
 
-        yield return new WaitForSeconds(transitionTime);
+    protected void FadeInFinished()
+    {
+        OnFadeInFinished?.Invoke();
+    }
 
-        myAnimator.SetTrigger("End");
+    protected void FadeOutFinished()
+    {
+        OnFadeOutFinished?.Invoke();
     }
 }
