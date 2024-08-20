@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : Unit
 {
-    [Header("PlayerMovement Settings")] 
+    [Header("PlayerMovement Settings")]
     [SerializeField] private float speed;
-    
+
     private Rigidbody2D _rb;
     private PlayerControls _playerControls;
     private InputAction _movementInput;
@@ -20,10 +20,20 @@ public class PlayerMovement : Unit
         _animator = GetComponent<Animator>();
         _movementInput = _playerControls.Player.Move;
     }
-    
-    private void OnEnable() => _movementInput.Enable();
 
-    private void OnDisable() => _movementInput.Disable();
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        _movementInput.Enable();
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        _movementInput.Disable();
+    }
 
     private void Update()
     {
@@ -34,7 +44,7 @@ public class PlayerMovement : Unit
     private void Movement()
     {
         _movementDirection = _movementInput.ReadValue<Vector2>();
-        
+
         _rb.velocity = _movementDirection * speed;
     }
 
@@ -45,8 +55,5 @@ public class PlayerMovement : Unit
         _animator.SetBool("Walking", _movementDirection != Vector2.zero);
     }
 
-    protected override void UpdateColor()
-    {
-        
-    }
+    protected override void UpdateColor() { }
 }

@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour
 
     SpriteRenderer _sr;
 
+    public delegate void OnHitTarget(Collider2D targetCollider, Bullet bullet);
+    public static OnHitTarget onHitTarget;
+
     private void Awake()
     {
         _sr = transform.GetComponentInChildren<SpriteRenderer>();
@@ -39,6 +42,19 @@ public class Bullet : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + _sr.transform.up, Speed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D body)
+    {
+        body.TryGetComponent(out Unit UnitHit);
+
+        if (UnitHit != null)
+        {
+            if (UnitHit.Team == Target.Team)
+            {
+                onHitTarget?.Invoke(UnitHit.GetComponent<Collider2D>(), this);
+            }
         }
     }
 }
