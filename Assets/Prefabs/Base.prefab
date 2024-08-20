@@ -634,6 +634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolTipHeader: 
+  toolTipHeader: Base
   toolTipContent: 
   delay: 0

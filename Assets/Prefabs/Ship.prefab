@@ -171,7 +171,7 @@ MonoBehaviour:
   Shot: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
   VisionRange: 100
   AtkRate: 1
-  PlayerAtkRange: 12
+  PlayerAtkRange: 10
   PlayerSpeed: 3
   EnemyAtkRange: 8
   EnemySpeed: 1

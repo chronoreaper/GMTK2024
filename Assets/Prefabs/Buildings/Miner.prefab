@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6278722588997785233}
   - component: {fileID: 6265160838722352576}
   - component: {fileID: 8024619944195286454}
+  - component: {fileID: 8820004638889109079}
   m_Layer: 0
   m_Name: Miner
   m_TagString: Untagged
@@ -132,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  deathParticles: {fileID: 0}
 --- !u!114 &8024619944195286454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +149,21 @@ MonoBehaviour:
   Type: 0
   timeToGenerate: 2
   amountToGenerate: 1
-  maxAmount: 64
+--- !u!114 &8820004638889109079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446604531303431686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Miner
+  toolTipContent: 
+  delay: 0
 --- !u!1 &7734147748345648543
 GameObject:
   m_ObjectHideFlags: 0

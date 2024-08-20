@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 340b48e0b4b0cf74ea768086c7c1c778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipCost: []
+  SpawnClip: {fileID: 0}
 --- !u!114 &7412681409741425287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,8 +426,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5933871337967180430}
   m_SourcePrefab: {fileID: 100100000, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+--- !u!1 &4575621799326096297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+  m_PrefabInstance: {fileID: 5721925492383945029}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5933871337967180430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575621799326096297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Ship
+  toolTipContent: Spawns a ship
+  delay: 0.2
 --- !u!224 &5665938729078426474 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 128679876173830703, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
@@ -532,8 +555,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5365836276458552205}
   m_SourcePrefab: {fileID: 100100000, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+--- !u!1 &3304385788324852052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+  m_PrefabInstance: {fileID: 6758788677232638904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5365836276458552205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3304385788324852052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Miner
+  toolTipContent: Collects resources on a tile
+  delay: 0.2
 --- !u!224 &6630745421683040663 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 128679876173830703, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
@@ -646,8 +692,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4665830043970010126}
   m_SourcePrefab: {fileID: 100100000, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+--- !u!1 &1688856311335988682 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077068647145769708, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
+  m_PrefabInstance: {fileID: 7451072533757568806}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4665830043970010126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688856311335988682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Turret
+  toolTipContent: Shoots Enemies
+  delay: 0.2
 --- !u!224 &7399044028552920329 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 128679876173830703, guid: 24c0659edd5182d429a83c75986b39ac, type: 3}
