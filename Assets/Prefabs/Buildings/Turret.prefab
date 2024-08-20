@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a33bc0cbe69d7844b145a5201428f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10
   deathParticles: {fileID: 0}
 --- !u!114 &7537201391011751356
 MonoBehaviour:
@@ -354,7 +354,7 @@ MonoBehaviour:
   Type: 1
   damage: 1
   range: 15
-  fireRate: 1
+  fireRate: 60
   offsetRotation: -90
   PlayerGun: {fileID: 21300000, guid: 5568b1a616a66134aa7f236a5adc8a85, type: 3}
   PlayerBase: {fileID: 21300000, guid: ae13bb4bb526b7d4dbdf17ed2d96d13a, type: 3}

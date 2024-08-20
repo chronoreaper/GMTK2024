@@ -68,7 +68,19 @@ public class WinManager : MonoBehaviour
         {
             return;
         }
-        
+
+        // Check if selected objects are not destroyed
+        int i = 0;
+        while (i < spawnedPlanets.Count)
+        {
+            if (spawnedPlanets[i] == null)
+            {
+                spawnedPlanets.RemoveAt(i);
+            }
+            else
+                i++;
+        }
+
         var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
         conquerPercentageText.text = $"{percentage * 100}%";
         _sprite.fillAmount = percentage;
