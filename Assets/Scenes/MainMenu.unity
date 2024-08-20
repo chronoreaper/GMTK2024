@@ -2494,6 +2494,14 @@ PrefabInstance:
       propertyPath: Music
       value: 
       objectReference: {fileID: 1803065396}
+    - target: {fileID: 4855447165185198732, guid: 58ee55898d1fe8943b3b14f785ad4921, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855447165185198732, guid: 58ee55898d1fe8943b3b14f785ad4921, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 7335101379022807952, guid: 3d38fbecd35dc0e4b90d987f6abb5ffa, type: 2}
     - target: {fileID: 7511036384135924032, guid: 58ee55898d1fe8943b3b14f785ad4921, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

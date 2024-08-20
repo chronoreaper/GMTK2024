@@ -96,7 +96,7 @@ public class PlayerMouse : WorldView
         _playerControls = new PlayerControls();
         GainResources(ResourceTypes.Water, 10);
         GainResources(ResourceTypes.Wood, 10);
-        GainResources(ResourceTypes.Lava, 10);
+        GainResources(ResourceTypes.Lava, 20);
         GainResources(ResourceTypes.Stone, 10);
     }
 

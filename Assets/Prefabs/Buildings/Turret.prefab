@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   damage: 1
-  range: 6
+  range: 10
   fireRate: 60
   offsetRotation: -90
   PlayerGun: {fileID: 21300000, guid: 5568b1a616a66134aa7f236a5adc8a85, type: 3}
