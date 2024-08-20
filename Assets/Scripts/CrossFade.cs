@@ -4,6 +4,8 @@ using UnityEngine.Events;
 public class CrossFade : MonoBehaviour
 {
     private Animator myAnimator;
+    
+    [SerializeField] private bool useFadeIn;
 
     [Space]
     [Header("On Animation Finished Events")]
@@ -13,6 +15,14 @@ public class CrossFade : MonoBehaviour
     private void Awake()
     {
         myAnimator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        if (useFadeIn)
+        {
+            StartFadeIn();
+        }
     }
 
     // private void Update()
