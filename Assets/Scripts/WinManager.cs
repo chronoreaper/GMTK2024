@@ -82,7 +82,7 @@ public class WinManager : MonoBehaviour
         _sprite.fillAmount = percentage;
 
 
-        if (percentage == 1)
+        if (percentage >= 1)
         {
             OnGalaxyConquered?.Invoke();
         }
