@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 1202652509083021764}
   - component: {fileID: 3499965651341356104}
   - component: {fileID: 5409071173989779236}
+  - component: {fileID: 592486198470453970}
   m_Layer: 5
   m_Name: Stone
   m_TagString: Untagged
@@ -675,6 +676,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &592486198470453970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573934465164055310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Stone
+  toolTipContent: 
+  delay: 0.5
 --- !u!1 &4144865608733498675
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +702,7 @@ GameObject:
   - component: {fileID: 1605582757375640454}
   - component: {fileID: 4892118587542889509}
   - component: {fileID: 5072015426511671889}
+  - component: {fileID: 432721728379806370}
   m_Layer: 5
   m_Name: Water
   m_TagString: Untagged
@@ -751,6 +768,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &432721728379806370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144865608733498675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Water
+  toolTipContent: 
+  delay: 0.5
 --- !u!1 &4789756902368380796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,6 +1287,7 @@ GameObject:
   - component: {fileID: 1973912903643447978}
   - component: {fileID: 7268387692968453520}
   - component: {fileID: 6887130566915139208}
+  - component: {fileID: 5018184701632774074}
   m_Layer: 5
   m_Name: Lava
   m_TagString: Untagged
@@ -1320,6 +1353,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5018184701632774074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6281851137961885381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Lava
+  toolTipContent: 
+  delay: 0.5
 --- !u!1 &6932253395757765908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1379,7 @@ GameObject:
   - component: {fileID: 2614605082487540542}
   - component: {fileID: 221280144631401437}
   - component: {fileID: 7150284126253551333}
+  - component: {fileID: 8021878747151065838}
   m_Layer: 5
   m_Name: Wood
   m_TagString: Untagged
@@ -1396,6 +1445,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8021878747151065838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6932253395757765908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: Wood
+  toolTipContent: 
+  delay: 0.5
 --- !u!1 &7238725121790641774
 GameObject:
   m_ObjectHideFlags: 0
