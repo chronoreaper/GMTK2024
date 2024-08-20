@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  deathParticles: {fileID: 8680944980714597937, guid: 90a7690dbc3b32342a65cee860edf885, type: 3}
 --- !u!58 &8444037967093077126
 CircleCollider2D:
   m_ObjectHideFlags: 0

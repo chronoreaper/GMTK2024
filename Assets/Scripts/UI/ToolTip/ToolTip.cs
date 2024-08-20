@@ -46,14 +46,6 @@ public class ToolTip : MonoBehaviour
     
     private void Update()
     {
-        if (Application.isEditor)
-        {
-            var headerLength = headerText.text.Length;
-            var contentLength = contentText.text.Length;
-
-            element.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit;
-        }
-
         var mousePosition = _currentMousePosition.ReadValue<Vector2>();
         var pivotPoint = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
 

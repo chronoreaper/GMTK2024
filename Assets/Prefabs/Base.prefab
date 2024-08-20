@@ -549,6 +549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
+  deathParticles: {fileID: 0}
 --- !u!61 &2084610228534937961
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -27,10 +27,14 @@ public class WinManager : MonoBehaviour
     }
 
     [SerializeField] private UnityEvent OnGalaxyConquered;
+    [SerializeField] private UnityEvent OnGameLosed;
     
     [Header("Conquer UI")] 
     [SerializeField] private TextMeshProUGUI conquerPercentageText;
     [SerializeField] private Image _sprite;
+
+    [Header("Lose Condition")] 
+    [SerializeField] private UnitBase startPlanet;
     
     private float _numberOfPlanetsConquer = 1;
     public readonly List<UnitPlanet> spawnedPlanets = new();
@@ -39,6 +43,12 @@ public class WinManager : MonoBehaviour
 
     public void UpdateConquerPercentage(Unit.UnitTeam team)
     {
+        if (startPlanet.Team != Unit.UnitTeam.Player && spawnedPlanets.Exists(planet => planet.Team == Unit.UnitTeam.Player))
+        {
+            OnGameLosed?.Invoke();   
+            return;
+        }
+        
         if (team == Unit.UnitTeam.Player)
         {
             _numberOfPlanetsConquer++;

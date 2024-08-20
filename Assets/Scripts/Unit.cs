@@ -87,12 +87,6 @@ public class Unit : MonoBehaviour
 
     private void OnHit(Collider2D collider, Bullet bullet)
     {
-        if (bullet.Source.Team == Team)
-        {
-            BulletSpawner.Instance.Release(bullet);
-            return;
-        }
-        
         if (collider == GetComponent<Collider2D>())
         {
             Hp.Damage(1, bullet.Source);

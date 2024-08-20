@@ -968,7 +968,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 566930291}
+      - m_Target: {fileID: 784285958}
         m_TargetAssemblyTypeName: AudioVolumeControl, Assembly-CSharp
         m_MethodName: SetMusicVolumeFromSlider
         m_Mode: 1
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 566930291}
+      - m_Target: {fileID: 784285958}
         m_TargetAssemblyTypeName: AudioVolumeControl, Assembly-CSharp
         m_MethodName: SetMasterVolumeFromSlider
         m_Mode: 1
@@ -1243,7 +1243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 566930290}
-  - component: {fileID: 566930291}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -1276,25 +1275,6 @@ RectTransform:
   m_AnchoredPosition: {x: -650, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &566930291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566930289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a487f8f86eb72c24b8216943e74fe47e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterVolumeSlider: {fileID: 497246135}
-  musicVolumeSlider: {fileID: 374525439}
-  sfxVolumeSlider: {fileID: 642753001}
-  masterVolumeText: {fileID: 2031213674}
-  musicVolumeText: {fileID: 135393425}
-  sfxVolumeText: {fileID: 2050828251}
-  mixer: {fileID: 24100000, guid: 3d38fbecd35dc0e4b90d987f6abb5ffa, type: 2}
 --- !u!1 &591127233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1442,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 566930291}
+      - m_Target: {fileID: 784285958}
         m_TargetAssemblyTypeName: AudioVolumeControl, Assembly-CSharp
         m_MethodName: SetSFXVolumeFromSlider
         m_Mode: 1
@@ -2035,6 +2015,7 @@ GameObject:
   - component: {fileID: 784285955}
   - component: {fileID: 784285954}
   - component: {fileID: 784285953}
+  - component: {fileID: 784285958}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2140,6 +2121,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &784285958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784285952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a487f8f86eb72c24b8216943e74fe47e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolumeSlider: {fileID: 497246135}
+  musicVolumeSlider: {fileID: 374525439}
+  sfxVolumeSlider: {fileID: 642753001}
+  masterVolumeText: {fileID: 2031213674}
+  musicVolumeText: {fileID: 135393425}
+  sfxVolumeText: {fileID: 2050828251}
+  mixer: {fileID: 24100000, guid: 3d38fbecd35dc0e4b90d987f6abb5ffa, type: 2}
 --- !u!1 &788667627
 GameObject:
   m_ObjectHideFlags: 0
