@@ -45,7 +45,7 @@ public class UnitBase : Unit, IGetCustomTip
         }
         
         OnBaseCaptured?.Invoke(Team);
-        maxSpawnAmount = Random.Range(3, maxSpawnAmount);
+        //maxSpawnAmount = Random.Range(3, maxSpawnAmount);
         WinManager.Instance.UpdateConquerPercentage(Team);
         StartCoroutine(nameof(ResetEnemySpawn));
     }

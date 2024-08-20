@@ -45,7 +45,7 @@ public class WinManager : MonoBehaviour
 
     public void UpdateConquerPercentage(Unit.UnitTeam team)
     {
-        if (startPlanet.Team != Unit.UnitTeam.Player && spawnedPlanets.Exists(planet => planet.Team == Unit.UnitTeam.Player))
+        if (startPlanet.Team != Unit.UnitTeam.Player)
         {
             OnGameLosed?.Invoke();   
             return;
