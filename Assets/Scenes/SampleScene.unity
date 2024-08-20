@@ -751,7 +751,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: maxHealth
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: maxRadius
@@ -759,7 +759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: minHealth
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1329820098751839206, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: minRadius
@@ -819,11 +819,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.x
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalScale.y
-      value: 160
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8985468674106872165, guid: 40e5756f652c0934a84468266c6abb84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1130,11 +1130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8863527018818216977, guid: 1a4c05a93a5d4b8459c8c1fa10da7591, type: 3}
       propertyPath: m_Size.x
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 8863527018818216977, guid: 1a4c05a93a5d4b8459c8c1fa10da7591, type: 3}
       propertyPath: m_Size.y
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

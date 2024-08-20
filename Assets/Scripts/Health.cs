@@ -81,7 +81,9 @@ public class Health : MonoBehaviour
             ShipSpawner.Instance.Release(ship);
             return;
         }
-        
+
+        if (GetComponent <UnitPlanet>()!= null || GetComponent<UnitBase>() != null)
+            WinManager.Instance.UpdateConquerPercentage();
         Destroy(gameObject);
     }
 

@@ -39,7 +39,9 @@ public class WinManager : MonoBehaviour
     private float _numberOfPlanetsConquer = 1;
     public readonly List<UnitPlanet> spawnedPlanets = new();
 
-    private void Awake() => Instance = this;
+    private void Awake() {
+        Instance = this;
+    }
 
     public void UpdateConquerPercentage(Unit.UnitTeam team)
     {
@@ -69,6 +71,25 @@ public class WinManager : MonoBehaviour
             return;
         }
 
+        UpdateConquerPercentage();
+    }
+    
+    public void UpdateConquerPercentage()
+    {
+        CheckNull();
+        var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
+        conquerPercentageText.text = $"{Mathf.Round(percentage * 100)}%";
+        _sprite.fillAmount = percentage;
+
+
+        if (percentage == 1)
+        {
+            OnGalaxyConquered?.Invoke();
+        }
+    }
+
+    private void CheckNull()
+    {
         // Check if selected objects are not destroyed
         int i = 0;
         while (i < spawnedPlanets.Count)
@@ -80,21 +101,5 @@ public class WinManager : MonoBehaviour
             else
                 i++;
         }
-
-        var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
-        conquerPercentageText.text = $"{percentage * 100}%";
-        _sprite.fillAmount = percentage;
-        
-        if (percentage == 1)
-        {
-            OnGalaxyConquered?.Invoke();
-        }
-    }
-    
-    public void UpdateConquerPercentage()
-    {
-        var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
-        conquerPercentageText.text = $"{percentage * 100}%";
-        _sprite.fillAmount = percentage;
     }
 }

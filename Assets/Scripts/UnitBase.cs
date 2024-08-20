@@ -22,6 +22,7 @@ public class UnitBase : Unit, IGetCustomTip
     protected override void Awake()
     {
         base.Awake();
+        UpdateColor();
     }
 
     protected override void UpdateColor()
@@ -39,7 +40,7 @@ public class UnitBase : Unit, IGetCustomTip
         }
         
         OnBaseCaptured?.Invoke(Team);
-        maxSpawnAmount = Random.Range(1, maxSpawnAmount);
+        maxSpawnAmount = Random.Range(3, maxSpawnAmount);
         WinManager.Instance.UpdateConquerPercentage(Team);
         StartCoroutine(nameof(ResetEnemySpawn));
     }
@@ -57,7 +58,7 @@ public class UnitBase : Unit, IGetCustomTip
         int i = 0;
         while (i < _spawned.Count)
         {
-            if (_spawned[i] == null)
+            if (!_spawned[i].isActiveAndEnabled)
             {
                 _spawned.RemoveAt(i);
             }
@@ -65,9 +66,10 @@ public class UnitBase : Unit, IGetCustomTip
                 i++;
         }
 
-        yield return new WaitUntil(() => _spawned.Count < maxSpawnAmount);
+        //yield return new WaitUntil(() => _spawned.Count < maxSpawnAmount);
         yield return new WaitForSeconds(Random.Range(enemySpawnTime, enemySpawnTime * 1.5f));
-        if (Team != UnitTeam.Player)
+
+        if (Team != UnitTeam.Player && _spawned.Count < maxSpawnAmount)
         {
             var ship = ShipSpawner.Instance.Get();
 

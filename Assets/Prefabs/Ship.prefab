@@ -169,10 +169,12 @@ MonoBehaviour:
   shootPoint: {fileID: 2228299282551704011}
   offsetRotation: 90
   Shot: {fileID: 580815291204579245, guid: 6935174252c298e4aa230068d2b4b7e6, type: 3}
-  Speed: 3
   VisionRange: 100
-  AtkRange: 15
   AtkRate: 1
+  PlayerAtkRange: 12
+  PlayerSpeed: 3
+  EnemyAtkRange: 8
+  EnemySpeed: 1
   PlayerSprite: {fileID: 21300000, guid: b14c09e293c9d2944b8058d8074c1e4d, type: 3}
   EnemySprite: {fileID: 21300000, guid: f3ff66837e347a64ca552128b153a61f, type: 3}
 --- !u!114 &857797036975095136
@@ -200,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a33bc0cbe69d7844b145a5201428f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 5
   deathParticles: {fileID: 8680944980714597937, guid: 90a7690dbc3b32342a65cee860edf885, type: 3}
 --- !u!58 &8444037967093077126
 CircleCollider2D:

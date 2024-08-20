@@ -7,10 +7,18 @@ public class Ship : MonoBehaviour, IGetCustomTip
     [SerializeField] private float offsetRotation;
     
     public Bullet Shot;
-    public float Speed = 5f;
     public float VisionRange = 5f;
-    public float AtkRange = 3f;
     public float AtkRate = 1f;
+
+    private float AtkRange = 15f;
+    private float Speed = 5f;
+
+    public float PlayerAtkRange = 15f;
+    public float PlayerSpeed = 3f;
+
+    public float EnemyAtkRange = 8f;
+    public float EnemySpeed = 1f;
+
 
     public Sprite PlayerSprite;
     public Sprite EnemySprite;
@@ -43,12 +51,14 @@ public class Ship : MonoBehaviour, IGetCustomTip
         if (_unit.Team == Unit.UnitTeam.Player)
         {
             _sr.sprite = PlayerSprite;
+            AtkRange = PlayerAtkRange;
+            Speed = PlayerSpeed;
         }
         else
         {
             _sr.sprite = EnemySprite;
-            AtkRange = 8;
-            Speed = 1;
+            AtkRange = EnemyAtkRange;
+            Speed = EnemySpeed;
         }
     }
 
