@@ -59,16 +59,35 @@ public class Unit : MonoBehaviour
         Team = _initialTeam;
     }
 
+    protected virtual void OnEnable()
+    {
+        Bullet.onHitTarget += OnHit;
+    }
+
+    protected virtual void OnDisable()
+    {
+        Bullet.onHitTarget -= OnHit;
+    }
+
     protected virtual void OnValidate()
     {
         
     }
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    // protected void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     Bullet bullet = collision.collider.GetComponent<Bullet>();
+    //     // This may cause an error if the bullet Soruce is killed before the bullet is hit.
+    //     if (bullet != null && bullet.Source.Team != Team)
+    //     {
+    //         Hp.Damage(1, bullet.Source);
+    //         BulletSpawner.Instance.Release(bullet);
+    //     }
+    // }
+
+    private void OnHit(Collider2D collider, Bullet bullet)
     {
-        Bullet bullet = collision.collider.GetComponent<Bullet>();
-        // This may cause an error if the bullet Soruce is killed before the bullet is hit.
-        if (bullet != null && bullet.Source.Team != Team)
+        if (collider == GetComponent<Collider2D>())
         {
             Hp.Damage(1, bullet.Source);
             BulletSpawner.Instance.Release(bullet);
