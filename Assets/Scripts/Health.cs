@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 public class Health : MonoBehaviour
 {
     [SerializeField] protected float maxHealth;
+    [SerializeField] protected GameObject deathParticles;
 
     private float _currentHealth;
     private SpriteRenderer[] _sr;
@@ -76,6 +77,7 @@ public class Health : MonoBehaviour
         var ship = GetComponent<Ship>();
         if (ship)
         {
+            Instantiate(deathParticles, transform.position, Quaternion.identity);
             ShipSpawner.Instance.Release(ship);
             return;
         }
