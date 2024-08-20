@@ -153,7 +153,7 @@ public class CameraZoomSystem : WorldView
         {
             currentZoom -= zoomAmount;
         }
-        else if (context.ReadValue<Vector2>().y < 0.1)
+        else if (context.ReadValue<Vector2>().y < -0.1)
         {
             currentZoom += zoomAmount;
         }
