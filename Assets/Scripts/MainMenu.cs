@@ -3,7 +3,22 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void StartGame(int sceneIndex) => SceneManager.LoadScene(sceneIndex);
+    [SerializeField] private CrossFade fade;
+
+    private int sceneIndex;
+
+    public void StartGame(int sceneIndex) {
+        fade.StartFadeOut();
+        
+        this.sceneIndex = sceneIndex;
+    }
+
+    public void OnFadeFinished()
+    {
+        
+        SceneManager.LoadScene(sceneIndex);
+    }
+        
 
     public void Quit() => Application.Quit();
 }

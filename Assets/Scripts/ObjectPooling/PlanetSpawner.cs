@@ -79,7 +79,7 @@ public class PlanetSpawner : MonoBehaviour
             int randomPositionY = (int)Random.Range(-_spawnAreaSize.y, _spawnAreaSize.y);
             randomPosition = new Vector2Int(randomPositionX, randomPositionY);
 
-            if (!IsPositionOccupied(randomPosition, maxRadius))
+            if (!IsPositionOccupied(randomPosition, maxRadius * 1.5f))
             {
                 return randomPosition;
             }
