@@ -77,6 +77,7 @@ public class Health : MonoBehaviour
         if (ship)
         {
             ShipSpawner.Instance.Release(ship);
+            return;
         }
         
         Destroy(gameObject);
