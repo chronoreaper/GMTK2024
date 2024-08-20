@@ -65,6 +65,7 @@ public class PlanetSpawner : MonoBehaviour
             unitPlanet.Spwaner(GetMaxHealth(), GetRandomTeam(), GetRandomRadius(), GetRandomPlanetType());
             WinManager.Instance.spawnedPlanets.Add(unitPlanet);
         }
+        WinManager.Instance.UpdateConquerPercentage();
     }
 
     private Vector2Int? GetRandomPosition()

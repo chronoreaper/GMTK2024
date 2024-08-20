@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,6 +14,11 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         var customData = eventData.pointerEnter.GetComponent<IGetCustomTip>();
+
+        if (eventData.pointerEnter.GetComponent<TextMeshProUGUI>())
+        {
+            return;
+        }
         
         if (customData != null)
         {

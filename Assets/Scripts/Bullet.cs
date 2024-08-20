@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     TrailRenderer _tr;
 
     public delegate void OnHitTarget(Collider2D targetCollider, Bullet bullet);
-    public static OnHitTarget onHitTarget;
+    public static event OnHitTarget onHitTarget;
 
     private void Awake()
     {
