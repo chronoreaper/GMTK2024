@@ -14,9 +14,9 @@ TagManager:
   - UI
   - PlanetLevel
   - SystemLevel
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Neutral
   - 
   - 
   - 
