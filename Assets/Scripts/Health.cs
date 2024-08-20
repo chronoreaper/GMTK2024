@@ -1,11 +1,19 @@
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] protected float maxHealth;
 
     private float _currentHealth;
+    private SpriteRenderer[] _sr;
+    private Material _defaultMaterial;
+    private Material _hitMaterial;
+    private AudioClip _hitSound;
+    private AudioClip _defeatSound;
+    private AudioSource _audioSource;
+
     protected Unit _lastDamagedBy;
 
     public float CurrentHealth
@@ -22,12 +30,25 @@ public class Health : MonoBehaviour
             if (value <= 0)
             {
                 _currentHealth = 0;
+                AudioManager.Inst.Play(_defeatSound);
                 Kill();
                 return;
             }
 
             _currentHealth = value;
         }
+    }
+
+    private void Awake()
+    {
+        _sr = GetComponentsInChildren<SpriteRenderer>();
+        _defaultMaterial = new Material(Shader.Find("Sprites/Default"));
+        _hitMaterial = Resources.Load<Material>("SetColor"); //new Material(Shader.Find("Shader Graphs/SetColour"));
+        _hitSound = Resources.Load<AudioClip>("sHitSlash");
+        _defeatSound = Resources.Load<AudioClip>("sGroundPound");
+        _audioSource = gameObject.AddComponent<AudioSource>();
+        _audioSource.outputAudioMixerGroup = Resources.Load<AudioMixerGroup>("Master");
+        _audioSource.volume = 0.7f;
     }
 
     private void Start()
@@ -40,6 +61,11 @@ public class Health : MonoBehaviour
     {
         Damage(damage);
         _lastDamagedBy = source;
+        foreach(var sr in _sr)
+            sr.material = _hitMaterial;
+        _audioSource.PlayOneShot(_hitSound);
+        CancelInvoke();
+        Invoke(nameof(ResetMaterial), 0.2f);
     }
 
     public void Heal(float amount) => CurrentHealth += amount;
@@ -59,5 +85,11 @@ public class Health : MonoBehaviour
     public void SetMaxHealth(float hp)
     {
         maxHealth = hp;
+    }
+
+    private void ResetMaterial()
+    {
+        foreach (var sr in _sr)
+            sr.material = _defaultMaterial;
     }
 }

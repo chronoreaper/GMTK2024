@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b037e00243a8b8b40beb74ed77d80a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Radius: 0
+  Radius: 1
   TileSet:
   - Type: 0
     BaseTile: {fileID: 11400000, guid: faa521f3a5379fd45823d967d460393e, type: 2}
@@ -529,9 +529,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialTeam: 0
-  resetTime: 3
-  enemySpawnTime: 2
-  spawnRange: 1
+  resetTime: 15
+  enemySpawnTime: 10
+  spawnRange: 2
+  maxSpawnAmount: 3
   playerBaseSprite: {fileID: 8524662567221204540}
   enemyBaseSprite: {fileID: 2287821268959906681}
 --- !u!114 &1806596520640390968

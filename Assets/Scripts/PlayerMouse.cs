@@ -58,6 +58,21 @@ public class PlayerMouse : WorldView
         return true;
     }
 
+    public void PayFor(BuildTypes unit)
+    {
+        foreach (var cost in BuildCosts)
+        {
+            if (cost.Building != unit)
+                continue;
+            foreach (ResourceCost rc in cost.Cost)
+            {
+                if (Inst.Resources.ContainsKey(rc.Type))
+                    Inst.Resources[rc.Type] -= rc.Amount;
+            }
+            break;
+        }
+    }
+
     // Start is called before the first frame update
     void Awake()
     {

@@ -47,6 +47,8 @@ public class Ship : MonoBehaviour
         else
         {
             _sr.sprite = EnemySprite;
+            Speed = 1;
+            AtkRange = 3;
         }
     }
 
@@ -70,8 +72,8 @@ public class Ship : MonoBehaviour
         
 
         // If you are in attack range and there is a target
-        bool inAtkRange = Mathf.Abs(((Vector2)transform.position - _targetPos).magnitude) <= AtkRange;
-        inAtkRange &= _target != null;
+        bool inAtkRange = _target != null && ((Vector2)transform.position - (Vector2)_target.transform.position).magnitude <= AtkRange;
+
         if (inAtkRange)
         {
             Attack();

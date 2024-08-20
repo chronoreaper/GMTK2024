@@ -38,6 +38,7 @@ public class SpawnFromButton : MonoBehaviour
     {
         if (!PlayerMouse.Inst.CanPayFor(BuildTypes.Ship))
             return;
+        PlayerMouse.Inst.PayFor(BuildTypes.Ship);
         Ship ship = ShipSpawner.Instance.Get();
 
         // This may cause error TODO check
