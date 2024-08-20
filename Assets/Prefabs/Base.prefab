@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 1806596520640390968}
   - component: {fileID: 2084610228534937961}
   - component: {fileID: 5579675856911274195}
+  - component: {fileID: 5340411926399055553}
   m_Layer: 6
   m_Name: Base
   m_TagString: Untagged
@@ -531,7 +532,7 @@ MonoBehaviour:
   _initialTeam: 0
   resetTime: 15
   enemySpawnTime: 10
-  spawnRange: 2
+  spawnRange: 1
   maxSpawnAmount: 3
   playerBaseSprite: {fileID: 8524662567221204540}
   enemyBaseSprite: {fileID: 2287821268959906681}
@@ -620,3 +621,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &5340411926399055553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483767822433736311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b32f7d9f4d1d746889e22478031fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolTipHeader: 
+  toolTipContent: 
+  delay: 0

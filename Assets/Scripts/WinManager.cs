@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,14 +32,10 @@ public class WinManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI conquerPercentageText;
     [SerializeField] private Image _sprite;
     
-    private int _numberOfPlanetsConquer = 1;
+    private float _numberOfPlanetsConquer = 1;
     public readonly List<UnitPlanet> spawnedPlanets = new();
-    
-    private void Start()
-    {
-        Instance = this;
-        UpdateConquerPercentage();
-    }
+
+    private void Awake() => Instance = this;
 
     public void UpdateConquerPercentage(Unit.UnitTeam team)
     {
@@ -72,7 +69,7 @@ public class WinManager : MonoBehaviour
         }
     }
     
-    private void UpdateConquerPercentage()
+    public void UpdateConquerPercentage()
     {
         var percentage = _numberOfPlanetsConquer / spawnedPlanets.Count;
         conquerPercentageText.text = $"{percentage * 100}%";

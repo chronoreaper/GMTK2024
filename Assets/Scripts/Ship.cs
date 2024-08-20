@@ -47,8 +47,6 @@ public class Ship : MonoBehaviour, IGetCustomTip
         else
         {
             _sr.sprite = EnemySprite;
-            Speed = 1;
-            AtkRange = 3;
         }
     }
 

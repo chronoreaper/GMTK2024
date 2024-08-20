@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(HealthBase))]
-public class UnitBase : Unit
+public class UnitBase : Unit, IGetCustomTip
 {
     [Header("Base Settings")] 
     [SerializeField] private float resetTime;
@@ -16,6 +16,8 @@ public class UnitBase : Unit
     
     [SerializeField] private SpriteRenderer playerBaseSprite;
     [SerializeField] private SpriteRenderer enemyBaseSprite;
+
+    private float _numberOfShipsSpawned;
 
     protected override void UpdateColor()
     {
@@ -40,26 +42,31 @@ public class UnitBase : Unit
     private IEnumerator ResetEnemySpawn()
     {
         yield return new WaitForSeconds(Random.value * resetTime);
+        _numberOfShipsSpawned = 0;
         StopCoroutine(nameof(SpawnUnit));
         StartCoroutine(nameof(SpawnUnit));
     }
 
     private IEnumerator SpawnUnit()
     {
-        yield return new WaitForSeconds(Random.value * enemySpawnTime);
+        yield return new WaitUntil(() => _numberOfShipsSpawned < maxSpawnAmount);
+        yield return new WaitForSeconds(Random.Range(enemySpawnTime, enemySpawnTime * 1.5f));
         if (Team != UnitTeam.Player)
         {
-            foreach (var _ in Enumerable.Range(0, maxSpawnAmount))
-            {
-                var ship = ShipSpawner.Instance.Get();
+            var ship = ShipSpawner.Instance.Get();
+            _numberOfShipsSpawned++;
 
-                var angle = Random.Range(0f, 360f);
-                var position = new Vector2(transform.position.x + Mathf.Sin(Mathf.Deg2Rad * angle), transform.position.y + Mathf.Cos(Mathf.Deg2Rad * angle)) * spawnRange;
-                var rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 361));
+            var angle = Random.Range(0f, 360f);
+            var position = new Vector2(transform.position.x + Mathf.Sin(angle) * Mathf.Deg2Rad, transform.position.y + Mathf.Cos(angle) * Mathf.Deg2Rad) * spawnRange;
+            var rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 361));
 
-                ship.Init(position, rotation, Team);
-            }
+            ship.Init(position, rotation, Team);
         }
         StartCoroutine(nameof(SpawnUnit));
+    }
+
+    public string GetCustomData()
+    {
+        return Team.ToString();
     }
 }

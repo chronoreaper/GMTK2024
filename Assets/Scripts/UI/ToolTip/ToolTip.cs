@@ -10,6 +10,7 @@ public class ToolTip : MonoBehaviour
     [SerializeField] private LayoutElement element;
     [SerializeField] private int characterWrapLimit;
     [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Vector2 offset;
     
     private PlayerControls _playerControls;
     private InputAction _currentMousePosition;
@@ -57,6 +58,6 @@ public class ToolTip : MonoBehaviour
         var pivotPoint = new Vector2(mousePosition.x / Screen.width, mousePosition.y / Screen.height);
 
         rectTransform.pivot = pivotPoint;
-        transform.position = mousePosition;
+        transform.position = new Vector3(mousePosition.x + offset.x, mousePosition.y + offset.y, 0f);
     }
 }
