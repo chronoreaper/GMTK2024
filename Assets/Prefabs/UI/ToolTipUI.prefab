@@ -464,6 +464,7 @@ MonoBehaviour:
   element: {fileID: 3126770604835804798}
   characterWrapLimit: 80
   rectTransform: {fileID: 8291628486789201733}
+  offset: {x: 40, y: 40}
 --- !u!114 &5931255385315046966
 MonoBehaviour:
   m_ObjectHideFlags: 0
